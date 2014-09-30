@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block pagetitle %}Mi cuenta{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+	mi-cuenta <br>
+	{{user.email}}
+	<br>
+	{{user.username}}
+	<br>
+
+	<h1>Mis cursos</h1>
+	
+	{% if miscursos %}
+	
+		<ul>
+			{% for curso in miscursos %}
+			<li>{{curso}}</li>
+			{% endfor %}
+		</ul>
+
+	{% else %}
+	
+		<p style="font-style:italic;">Aún no estás suscrito a ningun curso</p>
+		<p><a href="/cursos/">Suscribete a un curso</a></p>
+	
+	{% endif %}
+
+</div>
+
+{% endblock %}

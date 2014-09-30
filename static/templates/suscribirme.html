@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}Suscribirme{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+{% if user.is_authenticated %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{{curso.nombre}}</h1>
+			<br>
+
+<p>Para suscribirte a este curso debes hacer un depósito y enviarnos el comprobante a <b>aulavirtual@apsacapacitacion.cl</b>, una vez confirmemos el pago activaremos el curso para ti.</p>
+<p>
+	<pre>
+		<b>Datos cuenta</b><br>
+		Banco Santander <br>
+		Cuenta Nº 888-888-888
+	</pre>
+	
+	<button type="button" class="btn btn-primary btn-lg">Suscribirme</button>
+
+</p>
+
+		</div>
+	</div>
+
+{% else %}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<p>Para suscribirte a un curso debes <a href="/cuentas/entrar">iniciar sesión</a> o <a href="/cuentas/registrarse">crear una cuenta</a> en el sitio</p>
+		</div>
+	</div>
+{% endif %}
+
+</div>
+
+{% endblock %}

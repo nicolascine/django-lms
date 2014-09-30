@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block pagetitle %}{{clase.nombre}}{% endblock %}
+
+{% block content %}
+	
+<div class="container">
+	
+	<div class="row">
+		<div class="col-md-12">
+			
+			<h2>{{clase.nombre}}</h2>
+				{{clase.contenido}}
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md12">
+
+			<h4>Listado de clases</h4>
+
+			<ul>
+				{% for clase in listado_clases %}
+					<li><a href="/curso/{{curso_id}}/clase/{{clase.id}}">{{clase.nombre}}</a></li>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

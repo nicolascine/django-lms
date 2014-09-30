@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	
+	<div class="row">
+		<div class="col-md-12">
+			
+			<h2>{{curso.nombre}}</h2>
+			<img src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
+			
+			<br>
+			<h4>Listado de clases</h4>
+			
+			<ul>
+				{% for clase in listado_clases %}
+					<li>{{clase.nombre}}</li>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

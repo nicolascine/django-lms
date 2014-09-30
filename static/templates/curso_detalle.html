@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block pagetitle %}{{curso.nombre}}{% endblock %}
+
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="container">
+	
+	<div class="row">
+		<div class="col-md-12">
+			
+			<h2>{{curso.nombre}}</h2>
+			<h3><a href="/curso/suscribirme/{{curso.id}}/">Suscribirme</a></h3>
+			<img src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
+			
+			<br>
+			<h4>Listado de clases</h4>
+			
+			<ul>
+				{% for clase in listado_clases %}
+					<li><a href="/curso/{{curso.id}}/clase/{{clase.id}}">{{clase.nombre}}</a></li>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
+
+
+</div>
+
+{% endblock %}
