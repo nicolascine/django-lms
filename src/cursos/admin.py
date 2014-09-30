@@ -22,7 +22,7 @@ class UnidadAdmin(admin.ModelAdmin):
 		model = Unidad
 		
 
-# Registro modelsAdmin
+# Registro modelsAdmin #
 
 admin.site.register(Area, AreaAdmin)
 admin.site.register(Curso, CursoAdmin)
