@@ -15,9 +15,9 @@ def cursos(request):
 							  locals(), 
 							  context_instance = RequestContext(request))
 
-def cursodetalle(request, curso_id):
-	curso = Curso.objects.get(id=curso_id)
-	listado_clases = Clase.objects.filter(curso=curso_id)
+def cursodetalle(request, slug):
+	curso = Curso.objects.get(slug=slug)
+	listado_clases = Clase.objects.filter(curso=curso.id)
 	return render_to_response("curso_detalle.html", 
 							  locals(), 
 							  context_instance = RequestContext(request))
