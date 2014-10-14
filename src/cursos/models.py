@@ -53,7 +53,7 @@ class Clase(models.Model):
 	contenido = models.TextField()
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-	sorting = models.IntegerField("Ordering", blank=True, null=True, 
+	sorting = models.IntegerField("Orden", blank=True, null=False, 
 		help_text="Numero para ordenar clases")
 
 	def save(self, *args, **kwargs): #Then override models save method:
@@ -61,6 +61,7 @@ class Clase(models.Model):
 		#Only set the slug when the object is created.
 		self.clase_slug = slugify(self.nombre) #Or whatever you want the slug to use
 		super(Clase, self).save(*args, **kwargs)
+
 
 	def __unicode__(self):
 		return smart_unicode(self.nombre)

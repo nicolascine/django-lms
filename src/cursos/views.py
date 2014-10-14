@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response, RequestContext, redirect
 from cursos.models import Curso, Clase
-
+from django.db import models
 
 # Create your views here.
 
@@ -30,9 +30,26 @@ def clasedetalle(request, slug, clase_slug):
 
 		#listado_clases = Clase.objects.filter(curso=curso_id)
 		clase = Clase.objects.get(clase_slug=clase_slug)
-		#curso_id = curso_id
 
-		return render_to_response("clase_detalle.html", 
+		
+		def clase_siguiente(numero):
+			try:
+				next = Clase.objects.get(sorting=(numero+1))
+				return next
+			except Clase.DoesNotExist:
+				return None
+		
+		def clase_anterior(numero):
+			try:
+				prev = Clase.objects.get(sorting=(numero-1))
+				return prev
+			except Clase.DoesNotExist:
+				return None
+
+		siguiente = clase_siguiente(clase.sorting)
+		anterior = clase_anterior(clase.sorting)
+
+	return render_to_response("clase_detalle.html", 
 								  locals(), 
 								  context_instance = RequestContext(request))
 

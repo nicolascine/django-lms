@@ -7,8 +7,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			<ul>
-				<li><a href="#">Anterior</a></li>
-				<li><a href="#">Siguiente</a></li>
+
+				{% if anterior %}<li><a href="../{{ anterior.clase_slug }}" >Anterior</a></li>{% endif %}
+				{% if siguiente %}<li><a href="../{{ siguiente.clase_slug }}">Siguiente</a></li>{% endif %}
 			</ul>
 		</div>
 	</div>
