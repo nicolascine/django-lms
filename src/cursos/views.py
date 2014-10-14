@@ -31,17 +31,16 @@ def clasedetalle(request, slug, clase_slug):
 		#listado_clases = Clase.objects.filter(curso=curso_id)
 		clase = Clase.objects.get(clase_slug=clase_slug)
 
-		
 		def clase_siguiente(numero):
 			try:
-				next = Clase.objects.get(sorting=(numero+1))
+				next = Clase.objects.get(curso = clase.curso.id, sorting=(numero+1))
 				return next
 			except Clase.DoesNotExist:
 				return None
 		
 		def clase_anterior(numero):
 			try:
-				prev = Clase.objects.get(sorting=(numero-1))
+				prev = Clase.objects.get(curso = clase.curso.id, sorting=(numero-1))
 				return prev
 			except Clase.DoesNotExist:
 				return None
