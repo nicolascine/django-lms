@@ -3,7 +3,7 @@ env
 bin
 lib
 include
-.DS_Store
-.pyc
+*.DS_Store
+*.pyc
 static/media/*/
 static/media/*.*
