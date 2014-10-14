@@ -17,20 +17,20 @@ def cursos(request):
 
 def cursodetalle(request, slug):
 	curso = Curso.objects.get(slug=slug)
-	listado_clases = Clase.objects.filter(curso=curso.id)
+	listado_clases = Clase.objects.filter(curso=curso.id).order_by('sorting', 'nombre')
 	return render_to_response("curso_detalle.html", 
 							  locals(), 
 							  context_instance = RequestContext(request))
 
-def clasedetalle(request, curso_id, clase_id):
+def clasedetalle(request, slug, clase_slug):
 	if not request.user.is_authenticated():
 		#return HttpResponse("Necesitas Loguearte!")
 		 return redirect('/cuentas/entrar/')
 	else:
 
-		clase = Clase.objects.get(id=clase_id)
-		listado_clases = Clase.objects.filter(curso=curso_id)
-		curso_id = curso_id
+		#listado_clases = Clase.objects.filter(curso=curso_id)
+		clase = Clase.objects.get(clase_slug=clase_slug)
+		#curso_id = curso_id
 
 		return render_to_response("clase_detalle.html", 
 								  locals(), 

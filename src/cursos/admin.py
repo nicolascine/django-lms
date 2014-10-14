@@ -14,6 +14,11 @@ class CursoAdmin(admin.ModelAdmin):
 		model = Curso
 
 class ClaseAdmin(admin.ModelAdmin):
+
+	ordering = ['sorting', 'nombre', ]
+	list_editable = ['sorting', ] 
+	list_display = ['nombre', 'sorting', ] 
+	
 	class Meta:
 		model = Clase
 
