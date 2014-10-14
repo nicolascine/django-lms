@@ -62,7 +62,6 @@ class Clase(models.Model):
 		self.clase_slug = slugify(self.nombre) #Or whatever you want the slug to use
 		super(Clase, self).save(*args, **kwargs)
 
-
 	def __unicode__(self):
 		return smart_unicode(self.nombre)
 		

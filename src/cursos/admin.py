@@ -9,11 +9,9 @@ class AreaAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Area
 
-class CursoAdmin(admin.ModelAdmin):
-	class Meta:
-		model = Curso
-
 class ClaseAdmin(admin.ModelAdmin):
+	
+
 
 	ordering = ['sorting', 'nombre', ]
 	list_editable = ['sorting', ] 
@@ -22,14 +20,26 @@ class ClaseAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Clase
 
-class UnidadAdmin(admin.ModelAdmin):
+class UnidadInline(admin.TabularInline):	
+	
+	model = Unidad
+
 	class Meta:
 		model = Unidad
-		
+
+class CursoAdmin(admin.ModelAdmin):
+	
+	inlines = [
+        UnidadInline,
+    ]
+
+	class Meta:
+		model = Curso
+
 
 # Registro modelsAdmin #
 
 admin.site.register(Area, AreaAdmin)
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(Clase, ClaseAdmin)
-admin.site.register(Unidad, UnidadAdmin)
+#admin.site.register(Unidad, UnidadAdmin)
