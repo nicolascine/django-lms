@@ -11,8 +11,6 @@ class AreaAdmin(admin.ModelAdmin):
 
 class ClaseAdmin(admin.ModelAdmin):
 	
-
-
 	ordering = ['sorting', 'nombre', ]
 	list_editable = ['sorting', ] 
 	list_display = ['nombre', 'sorting', ] 
