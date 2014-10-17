@@ -30,7 +30,9 @@ class ClaseAdmin(admin.ModelAdmin):
 	list_filter = (CursoFilter,)
 	ordering = ['nombre', 'sorting', 'curso', ]
 	list_editable = ['sorting', ] 
-	list_display = ['nombre', 'sorting', 'curso', ] 
+	list_display = ['nombre', 'sorting', 'curso', ]
+	readonly_fields = ('clase_slug',)
+
 	
 	class Meta:
 		model = Clase
