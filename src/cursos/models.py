@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max
 from django.utils.encoding import smart_unicode
 
 from django.template.defaultfilters import slugify ## FRIENDLY SLUG <---
@@ -60,6 +61,11 @@ class Clase(models.Model):
 		#if not self.id:
 		#Only set the slug when the object is created.
 		self.clase_slug = slugify(self.nombre) #Or whatever you want the slug to use
+		
+		if not self.id:
+			ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
+			self.sorting = (ultimo['sorting__max']) + 1
+
 		super(Clase, self).save(*args, **kwargs)
 
 	def __unicode__(self):

@@ -31,7 +31,7 @@ class ClaseAdmin(admin.ModelAdmin):
 	ordering = ['nombre', 'sorting', 'curso', ]
 	list_editable = ['sorting', ] 
 	list_display = ['nombre', 'sorting', 'curso', ]
-	readonly_fields = ('clase_slug',)
+	readonly_fields = ('clase_slug', 'sorting')
 
 	
 	class Meta:
