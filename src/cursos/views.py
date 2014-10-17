@@ -17,7 +17,6 @@ def cursos(request):
 
 def cursodetalle(request, slug):
 	curso = Curso.objects.get(slug=slug)
-	
 	unidad = Unidad.objects.filter(curso_id=curso.id)
 	
 	listado_clases = Clase.objects.filter(unidad_id__in=unidad).order_by('sorting', 'nombre')
