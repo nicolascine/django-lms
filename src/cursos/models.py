@@ -53,7 +53,7 @@ class Clase(models.Model):
 	contenido = models.TextField()
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-	sorting = models.IntegerField("Orden", blank=True, null=False, 
+	sorting = models.IntegerField("Orden", blank=False, null=False,
 		help_text="Numero para ordenar clases")
 
 	def save(self, *args, **kwargs): #Then override models save method:

@@ -33,6 +33,7 @@ def clasedetalle(request, slug, clase_slug):
 	else:
 
 		#listado_clases = Clase.objects.filter(curso=curso_id)
+		#curso = Curso.objects.get(slug=slug)
 		clase = Clase.objects.get(clase_slug=clase_slug)
 
 		def clase_siguiente(numero):
@@ -51,6 +52,8 @@ def clasedetalle(request, slug, clase_slug):
 
 		siguiente = clase_siguiente(clase.sorting)
 		anterior = clase_anterior(clase.sorting)
+
+
 
 	return render_to_response("clase_detalle.html", 
 								  locals(), 

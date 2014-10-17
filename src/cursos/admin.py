@@ -1,8 +1,24 @@
 from django.contrib import admin
-
-# Register your models here.
-
+from django.contrib.admin import SimpleListFilter
+from django.contrib.admin import ModelAdmin
 from .models import Area, Curso, Clase, Unidad
+
+
+class CursoFilter(SimpleListFilter):
+    title = 'curso' # or use _('curso') for translated title
+    parameter_name = 'curso'
+
+    def lookups(self, request, model_admin):
+        cursos = set([c.curso for c in model_admin.model.objects.all()])
+        return [(c.id, c.nombre) for c in cursos]
+        # You can also use hardcoded model name like "Curso" instead of 
+        # "model_admin.model" if this is not direct foreign key filter
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(curso__id__exact=self.value())
+        else:
+            return queryset
 
 
 class AreaAdmin(admin.ModelAdmin):
@@ -11,9 +27,10 @@ class AreaAdmin(admin.ModelAdmin):
 
 class ClaseAdmin(admin.ModelAdmin):
 	
-	ordering = ['sorting', 'nombre', ]
+	list_filter = (CursoFilter,)
+	ordering = ['nombre', 'sorting', 'curso', ]
 	list_editable = ['sorting', ] 
-	list_display = ['nombre', 'sorting', ] 
+	list_display = ['nombre', 'sorting', 'curso', ] 
 	
 	class Meta:
 		model = Clase

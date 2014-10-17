@@ -6,8 +6,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			<h4><a href="../">Volver al Home del curso</a></h4>
 			<ul>
-
 				{% if anterior %}<li><a href="../{{ anterior.clase_slug }}" >Anterior</a></li>{% endif %}
 				{% if siguiente %}<li><a href="../{{ siguiente.clase_slug }}">Siguiente</a></li>{% endif %}
 			</ul>
