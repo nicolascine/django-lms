@@ -47,6 +47,7 @@ class CursoAdmin(admin.ModelAdmin):
 	inlines = [
         UnidadInline,
     ]
+	readonly_fields = ('slug',)
 
 	class Meta:
 		model = Curso
