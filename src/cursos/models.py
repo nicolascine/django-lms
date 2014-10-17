@@ -1,12 +1,7 @@
 from django.db import models
 from django.db.models import Max
 from django.utils.encoding import smart_unicode
-
-from django.template.defaultfilters import slugify ## FRIENDLY SLUG <---
-
-
-# Create your models here.
-
+from django.template.defaultfilters import slugify
 
 class Area(models.Model):
 	nombre = models.CharField(null=False, blank=False, max_length=200)
@@ -24,11 +19,9 @@ class Curso(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	
-	def save(self, *args, **kwargs): #Then override models save method:
-
+	def save(self, *args, **kwargs):
 		#if not self.id:
-		#Only set the slug when the object is created.
-		self.slug = slugify(self.nombre) #Or whatever you want the slug to use
+		self.slug = slugify(self.nombre)
 		super(Curso, self).save(*args, **kwargs)
 
 	def __unicode__(self):
@@ -57,24 +50,15 @@ class Clase(models.Model):
 	sorting = models.IntegerField("Orden", blank=False, null=False,
 		help_text="Numero para ordenar clases")
 
-	def save(self, *args, **kwargs): #Then override models save method:
-		#if not self.id:
-		#Only set the slug when the object is created.
-		self.clase_slug = slugify(self.nombre) #Or whatever you want the slug to use
-		
+	def save(self, *args, **kwargs):
+		self.clase_slug = slugify(self.nombre)
 		if not self.id:
 			ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
 			self.sorting = (ultimo['sorting__max']) + 1
-
 		super(Clase, self).save(*args, **kwargs)
-
+	
 	def __unicode__(self):
 		return smart_unicode(self.nombre)
-		
+
 	class Meta:
 		ordering = ('sorting', 'nombre')
-
-
-
-
-
