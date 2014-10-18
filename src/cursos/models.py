@@ -20,7 +20,6 @@ class Curso(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	
 	def save(self, *args, **kwargs):
-		#if not self.id:
 		self.slug = slugify(self.nombre)
 		super(Curso, self).save(*args, **kwargs)
 
@@ -63,7 +62,7 @@ class Clase(models.Model):
 	class Meta:
 		ordering = ('sorting', 'nombre')
 
-#Online exam model
+#Online Exam Model
 
 class Exam(models.Model):
     class Meta:
@@ -104,26 +103,3 @@ class UserAssesment(models.Model):
 
     def __unicode__(self):
         pass
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
