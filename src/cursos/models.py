@@ -62,3 +62,68 @@ class Clase(models.Model):
 
 	class Meta:
 		ordering = ('sorting', 'nombre')
+
+#Online exam model
+
+class Exam(models.Model):
+    class Meta:
+        verbose_name = ('Exam')
+        verbose_name_plural = ('Exams')
+
+    def __unicode__(self):
+        pass
+
+class Question(models.Model):
+    class Meta:
+        verbose_name = ('Question')
+        verbose_name_plural = ('Questions')
+
+    def __unicode__(self):
+        pass
+
+class ValidAnswer(models.Model):
+    class Meta:
+        verbose_name = ('ValidAnswer')
+        verbose_name_plural = ('ValidAnswers')
+
+    def __unicode__(self):
+        pass
+    
+class QuestioninExam(models.Model):
+    class Meta:
+        verbose_name = ('QuestioninExam')
+        verbose_name_plural = ('QuestionsinExams')
+
+    def __unicode__(self):
+        pass
+    
+class UserAssesment(models.Model):
+    class Meta:
+        verbose_name = ('UserAssesment')
+        verbose_name_plural = ('UserAssesments')
+
+    def __unicode__(self):
+        pass
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
