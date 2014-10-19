@@ -2,8 +2,11 @@ from django.db import models
 from django.db.models import Max
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
+
 from django.core.exceptions import ValidationError
 from django import forms
+
+from django.contrib import messages
 
 class Area(models.Model):
 	nombre = models.CharField(null=False, blank=False, max_length=200)
@@ -72,8 +75,8 @@ class Clase(models.Model):
 		else:
 			if Clase.objects.filter(curso_id=self.curso.id, sorting=self.sorting):
 				#raise forms.ValidationError('%s ya esta en la lisssssta' % self.sorting)
-				raise forms.ValidationError("You have no points!")
-				
+				raise forms.ValidationError(" E S T E  E S E L E R R O R !")
+
 		super(Clase, self).save(*args, **kwargs)
 	
 	def __unicode__(self):
