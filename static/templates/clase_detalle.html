@@ -28,9 +28,9 @@
 
 			<h4>Listado de clases</h4>
 
-			<ul>
-				{% for clase in listado_clases %}
-					<li><a href="/curso/{{curso_id}}/clase/{{clase.id}}">{{clase.nombre}}</a></li>
+			<ul id="listadoClases">
+				{% for listaclase in listado_clases %}
+					<li><a {% if listaclase.clase_slug == clase.clase_slug %}class="active" {% endif %} href="../{{listaclase.clase_slug}}">{{listaclase.nombre}}</a></li>
 				{% endfor %}
 			</ul>
 
