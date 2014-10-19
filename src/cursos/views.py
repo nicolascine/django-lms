@@ -17,7 +17,7 @@ def cursodetalle(request, slug):
 	curso = Curso.objects.get(slug=slug)
 	unidad = Unidad.objects.filter(curso_id=curso.id)
 	
-	listado_clases = Clase.objects.filter(unidad_id__in=unidad).order_by('sorting', 'nombre')
+	listado_clases = Clase.objects.filter(unidad_id__in=unidad, curso_id=curso.id).order_by('sorting', 'nombre')
 	
 	return render_to_response("curso_detalle.html", 
 							  locals(), 
@@ -29,7 +29,8 @@ def clasedetalle(request, slug, clase_slug):
 		 return redirect('/cuentas/entrar/')
 	else:
 		#listado_clases = Clase.objects.filter(curso=curso_id)
-		#curso = Curso.objects.get(slug=slug)
+		curso = Curso.objects.get(slug=slug)
+		unidad = Unidad.objects.filter(curso_id=curso.id)
 		clase = Clase.objects.get(clase_slug=clase_slug)
 
 		def clase_siguiente(numero):
@@ -45,7 +46,8 @@ def clasedetalle(request, slug, clase_slug):
 				return prev
 			except Clase.DoesNotExist:
 				return None
-
+		
+		listado_clases = Clase.objects.filter(unidad_id__in=unidad, curso_id=curso.id).order_by('sorting', 'nombre')
 		siguiente = clase_siguiente(clase.sorting)
 		anterior = clase_anterior(clase.sorting)
 
