@@ -44,9 +44,9 @@ class ClaseAdmin(admin.ModelAdmin):
 	
 	list_filter = (CountryFilter,)
 
-	ordering = ['nombre', 'sorting', 'curso', ]
+	ordering = ['sorting', ]
 	list_editable = ['sorting', ] 
-	list_display = ['nombre', 'sorting', 'curso', ]
+	list_display = ['nombre', 'curso', 'sorting', ]
 	readonly_fields = ['clase_slug', 'sorting', ]
 
 	class Meta:

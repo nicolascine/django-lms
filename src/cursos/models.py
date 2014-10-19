@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Max
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ValidationError
+from django import forms
 
 class Area(models.Model):
 	nombre = models.CharField(null=False, blank=False, max_length=200)
@@ -49,11 +51,29 @@ class Clase(models.Model):
 	sorting = models.IntegerField("Orden", blank=False, null=False,
 		help_text="Numero para ordenar clases")
 
+	
+
 	def save(self, *args, **kwargs):
+
+
+
 		self.clase_slug = slugify(self.nombre)
+			
+		# logica: si no existe ID (solo cuando se crea el objeto), busca el ultimo numero(sorting)
+		# y se incrementa en 1. Si es la primera clase del curso reemplaza el sorting__max = None, por int(0),
+		# quedando con sorting = 1
+		
+		ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
+
 		if not self.id:
-			ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
+			if ultimo['sorting__max'] == None:
+				ultimo['sorting__max'] = 0
 			self.sorting = (ultimo['sorting__max']) + 1
+		else:
+			if Clase.objects.filter(curso_id=self.curso.id, sorting=self.sorting):
+				#raise forms.ValidationError('%s ya esta en la lisssssta' % self.sorting)
+				raise forms.ValidationError("You have no points!")
+				
 		super(Clase, self).save(*args, **kwargs)
 	
 	def __unicode__(self):
