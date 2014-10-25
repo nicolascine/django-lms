@@ -1,4 +1,8 @@
+from django import forms
 from django.contrib import admin
+from functools import update_wrapper, partial
+from django.forms.models import (modelform_factory, modelformset_factory,
+                                 inlineformset_factory, BaseInlineFormSet)
 from django.contrib.admin import ModelAdmin, SimpleListFilter
 from .models import Area, Curso, Clase, Unidad
 
@@ -40,8 +44,23 @@ class AreaAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Area
 
+class ListaClaseForm(forms.ModelForm):
+  	
+
+  	class Meta:
+		model = Clase
+ 
+	def clean_sorting(self):
+		print self.cleaned_data
+		if Clase.objects.filter(curso_id=self.curso.id, sorting=self.sorting):
+			raise forms.ValidationError("esto ya existe")
+		return self.cleaned_data['sorting']
+ 
+
 class ClaseAdmin(admin.ModelAdmin):
-	
+
+	form = ListaClaseForm
+
 	list_filter = (CountryFilter,)
 
 	ordering = ['sorting', ]
@@ -49,8 +68,19 @@ class ClaseAdmin(admin.ModelAdmin):
 	list_display = ['nombre', 'curso', 'sorting', ]
 	readonly_fields = ['clase_slug', 'sorting', ]
 
-	class Meta:
-		model = Clase
+	def get_changelist_formset(self, request, **kwargs):
+			print request
+			defaults = {
+	            "formfield_callback": partial(super(ClaseAdmin, self).formfield_for_dbfield, request=request),
+	            "form": ListaClaseForm,
+	        }
+			defaults.update(kwargs)
+	 
+			return modelformset_factory(self.model,
+										self.get_changelist_form(request),
+	                                    extra=0,
+	                                    fields=self.list_editable, **defaults)
+
 
 class UnidadInline(admin.TabularInline):	
 	model = Unidad
