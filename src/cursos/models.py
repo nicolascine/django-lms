@@ -72,10 +72,6 @@ class Clase(models.Model):
 			if ultimo['sorting__max'] == None:
 				ultimo['sorting__max'] = 0
 			self.sorting = (ultimo['sorting__max']) + 1
-		else:
-			if Clase.objects.filter(curso_id=self.curso.id, sorting=self.sorting):
-				#raise forms.ValidationError('%s ya esta en la lisssssta' % self.sorting)
-				raise forms.ValidationError(" E S T E  E S E L E R R O R !")
 
 		super(Clase, self).save(*args, **kwargs)
 	
@@ -103,6 +99,15 @@ class Question(models.Model):
     def __unicode__(self):
         pass
 
+class RefTipeOfQuestion(models.Model):
+    class Meta:
+        verbose_name = ('RefTipeOfQuestion')
+        verbose_name_plural = ('RefTipeOfQuestions')
+
+    def __unicode__(self):
+        pass
+    
+
 class ValidAnswer(models.Model):
     class Meta:
         verbose_name = ('ValidAnswer')
@@ -111,7 +116,7 @@ class ValidAnswer(models.Model):
     def __unicode__(self):
         pass
     
-class QuestioninExam(models.Model):
+class QuestionInExam(models.Model):
     class Meta:
         verbose_name = ('QuestioninExam')
         verbose_name_plural = ('QuestionsinExams')
@@ -126,3 +131,12 @@ class UserAssesment(models.Model):
 
     def __unicode__(self):
         pass
+
+class UserAnswer(models.Model):
+    class Meta:
+        verbose_name = ('UserAnswer')
+        verbose_name_plural = ('UserAnswers')
+
+    def __unicode__(self):
+        pass
+    
