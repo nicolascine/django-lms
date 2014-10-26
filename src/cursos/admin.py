@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from django import forms
 from django.contrib import admin
 from functools import update_wrapper, partial
@@ -47,37 +49,74 @@ class AreaAdmin(admin.ModelAdmin):
 class ListaClaseForm(forms.ModelForm):
   	
 
+	
+
   	class Meta:
 		model = Clase
- 
-	def clean_sorting(self):
-		print self.cleaned_data
-		if Clase.objects.filter(curso_id=self.curso.id, sorting=self.sorting):
+	
+ 	def clean_sorting(self):
+		#print self.cleaned_data
+		#print self.instance.curso.nombre
+		#print self.instance.curso.id
+		#	print "---->"
+		
+		def cuenta(n):
+			array = []
+			array.append(n)
+			#print array
+
+		count = 0
+
+		if self.cleaned_data['sorting']:
+			count = count + 1
+			print("el valor de count es-->: %s" % count) 
+
+		cuenta = Clase.objects.filter(curso_id=self.instance.curso.id, sorting=(self.cleaned_data['sorting'])).count()
+		todos = Clase.objects.filter(curso_id=self.instance.curso.id, sorting=(self.cleaned_data['sorting']))
+		for registro in todos:
+			if cuenta > 1 and self.cleaned_data['sorting'] == registro.sorting:
+				raise forms.ValidationError("Ya existe este registro")
+
+		"""
+		for solo in todos:
+			if cuenta>1 and self.cleaned_data['sorting']==solo.sorting:
+				raise forms.ValidationError("este error si funciona :) ")
+
+		for t in p:
+			#ahora = timezone.now()
+			if (self.cleaned_data['sorting'] == t.sorting and t.updated > ahora):
+				raise forms.ValidationError("esto ya existe")
+		"""		
+		return self.cleaned_data['sorting']
+
+		#arreglo = Clase.objects.filter(curso_id=self.instance.curso.id)
+		#print arreglo
+
+		"""
+		if Clase.objects.filter(curso_id=self.instance.curso.id, sorting=self.cleaned_data['sorting']):
+			print Clase.objects.filter(curso_id=self.instance.curso.id, sorting=self.cleaned_data['sorting'])
 			raise forms.ValidationError("esto ya existe")
 		return self.cleaned_data['sorting']
- 
-
+		"""
 class ClaseAdmin(admin.ModelAdmin):
 
 	form = ListaClaseForm
 
 	list_filter = (CountryFilter,)
-
 	ordering = ['sorting', ]
 	list_editable = ['sorting', ] 
 	list_display = ['nombre', 'curso', 'sorting', ]
 	readonly_fields = ['clase_slug', 'sorting', ]
 
 	def get_changelist_formset(self, request, **kwargs):
-			print request
+
 			defaults = {
 	            "formfield_callback": partial(super(ClaseAdmin, self).formfield_for_dbfield, request=request),
 	            "form": ListaClaseForm,
 	        }
 			defaults.update(kwargs)
 	 
-			return modelformset_factory(self.model,
-										self.get_changelist_form(request),
+			return modelformset_factory(Clase,
 	                                    extra=0,
 	                                    fields=self.list_editable, **defaults)
 
