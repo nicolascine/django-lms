@@ -46,37 +46,52 @@ class AreaAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Area
 
-class ListaClaseForm(forms.ModelForm):
-  	
 
-	
+## VARIABLES GLOBALES VALIDACION Posicion de clases
+global arreglo
+arreglo = []
+
+def validaPosicion(n):
+	#print "count vale:", count
+	obj = Clase.objects.filter(curso_id=n)
+	total = Clase.objects.filter(curso_id=n).count()
+	#print "el total de clases es: ", total
+	for p in obj:
+		arreglo.append(p.sorting)
+	#return arreglo
+
+class ListaClaseForm(forms.ModelForm):
 
   	class Meta:
 		model = Clase
 	
+	
+
  	def clean_sorting(self):
-		#print self.cleaned_data
-		#print self.instance.curso.nombre
-		#print self.instance.curso.id
-		#	print "---->"
+ 		
+
+		"""
+
+		if Clase.objects.filter(curso_id=self.instance.curso.id, sorting=(self.cleaned_data['sorting'])):
+			print('existe un registro igual:', str(self.cleaned_data['sorting']))
+ 		---->
+		def funciona(n):
+			if count + 1 == 2:
+				print "count +1 == 2"
+			arreglo.append(n)
+
+		k = Clase.objects.filter(curso_id=self.instance.curso.id)
 		
-		def cuenta(n):
-			array = []
-			array.append(n)
-			#print array
-
-		count = 0
-
-		if self.cleaned_data['sorting']:
-			count = count + 1
-			print("el valor de count es-->: %s" % count) 
-
+		for r in k:
+			funciona(r.sorting)
+			#print self.cleaned_data['sorting']
+		
 		cuenta = Clase.objects.filter(curso_id=self.instance.curso.id, sorting=(self.cleaned_data['sorting'])).count()
 		todos = Clase.objects.filter(curso_id=self.instance.curso.id, sorting=(self.cleaned_data['sorting']))
 		for registro in todos:
 			if cuenta > 1 and self.cleaned_data['sorting'] == registro.sorting:
 				raise forms.ValidationError("Ya existe este registro")
-
+		"""
 		"""
 		for solo in todos:
 			if cuenta>1 and self.cleaned_data['sorting']==solo.sorting:
@@ -109,13 +124,40 @@ class ClaseAdmin(admin.ModelAdmin):
 	readonly_fields = ['clase_slug', 'sorting', ]
 
 	def get_changelist_formset(self, request, **kwargs):
+	 		
+	 		if request.GET and request.GET['curso']:
+	 			del arreglo[:]
+	 			#print request.GET['curso']
+				validaPosicion(request.GET['curso'])
+	 			print "arreglo en el GET: ", arreglo
+	 		"""
+			if request.POST:
+				try:
+					del arreglo[:]
+					print "cambio el curso ------->"
+					print "el valor del arreglo AHORA ESSSSS: ", arreglo
+				except Exception, e:
+					pass
 
+				for x in xrange(0,int(request.POST['form-TOTAL_FORMS'])):
+					validaPosicion(request.POST['form-'+str(x)+'-sorting'])
+					pass
+			"""
+				#print "existe un total de:", request.POST['form-TOTAL_FORMS'], "registros"
+				#print request.POST
+			"""
+	 		try:
+	 			curso = request.GET['curso']
+	 			validaPosicion(curso)
+	 		except Exception, e:
+	 			pass
+			"""
 			defaults = {
 	            "formfield_callback": partial(super(ClaseAdmin, self).formfield_for_dbfield, request=request),
 	            "form": ListaClaseForm,
 	        }
 			defaults.update(kwargs)
-	 
+	 		#print "el ID del curso es --->>>>", self.curso.id
 			return modelformset_factory(Clase,
 	                                    extra=0,
 	                                    fields=self.list_editable, **defaults)
