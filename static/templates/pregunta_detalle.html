@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block pagetitle %}{{clase.nombre}}{% endblock %}
+
+{% block content %}
+	
+<div class="container">
+	
+
+	<div class="row">
+		<div class="col-md-12">
+			<small>{{curso.nombre}}</small>
+			
+			<h2>{{examen.nombre}}</h2>
+			<h1>{{pregunta.texto}}</h1>
+				
+			
+		</div>
+	</div>
+	{% if listado_respuestas %}
+	<div class="row">
+		<h5>Alternativas:</h5>
+		
+		<ul>
+			{% for respuesta in listado_respuestas %}
+			<li>{{respuesta.texto}}</li>
+			{% endfor %}
+		</ul>
+
+	</div>
+	{%  endif %}
+</div>
+
+{% endblock %}
