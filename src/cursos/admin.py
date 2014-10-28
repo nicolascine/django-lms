@@ -1,5 +1,3 @@
-import datetime
-from django.utils import timezone
 from django import forms
 from django.contrib import admin
 from functools import update_wrapper, partial
@@ -55,7 +53,7 @@ class ListaClaseForm(forms.ModelForm):
 		#print self.instance.id, "---", self.instance.sorting
 		k = Clase.objects.filter(curso_id=self.instance.curso.id)
 		for p in k:
-			if p.sorting == self.cleaned_data['sorting'] and self.instance.id != p.id:
+			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
 				raise forms.ValidationError("Otra clase utiliza la posicion %s" % self.cleaned_data['sorting'])
 		return self.cleaned_data['sorting']
 
