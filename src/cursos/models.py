@@ -2,11 +2,13 @@ from django.db import models
 from django.db.models import Max
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
-
+from django.contrib.auth.models import User 
+"""
 from django.core.exceptions import ValidationError
 from django import forms
 
 from django.contrib import messages
+"""
 
 class Area(models.Model):
 	nombre = models.CharField(null=False, blank=False, max_length=200)
@@ -54,18 +56,12 @@ class Clase(models.Model):
 	sorting = models.IntegerField("Orden", blank=False, null=False,
 		help_text="Numero para ordenar clases")
 
-	
-
 	def save(self, *args, **kwargs):
 
-
-
 		self.clase_slug = slugify(self.nombre)
-			
 		# logica: si no existe ID (solo cuando se crea el objeto), busca el ultimo numero(sorting)
 		# y se incrementa en 1. Si es la primera clase del curso reemplaza el sorting__max = None, por int(0),
 		# quedando con sorting = 1
-		
 		ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
 
 		if not self.id:
@@ -81,62 +77,3 @@ class Clase(models.Model):
 	class Meta:
 		ordering = ('sorting', 'nombre')
 
-#Online Exam Model
-
-class Exam(models.Model):
-    class Meta:
-        verbose_name = ('Exam')
-        verbose_name_plural = ('Exams')
-
-    def __unicode__(self):
-        pass
-
-class Question(models.Model):
-    class Meta:
-        verbose_name = ('Question')
-        verbose_name_plural = ('Questions')
-
-    def __unicode__(self):
-        pass
-
-class RefTipeOfQuestion(models.Model):
-    class Meta:
-        verbose_name = ('RefTipeOfQuestion')
-        verbose_name_plural = ('RefTipeOfQuestions')
-
-    def __unicode__(self):
-        pass
-    
-
-class ValidAnswer(models.Model):
-    class Meta:
-        verbose_name = ('ValidAnswer')
-        verbose_name_plural = ('ValidAnswers')
-
-    def __unicode__(self):
-        pass
-    
-class QuestionInExam(models.Model):
-    class Meta:
-        verbose_name = ('QuestioninExam')
-        verbose_name_plural = ('QuestionsinExams')
-
-    def __unicode__(self):
-        pass
-    
-class UserAssesment(models.Model):
-    class Meta:
-        verbose_name = ('UserAssesment')
-        verbose_name_plural = ('UserAssesments')
-
-    def __unicode__(self):
-        pass
-
-class UserAnswer(models.Model):
-    class Meta:
-        verbose_name = ('UserAnswer')
-        verbose_name_plural = ('UserAnswers')
-
-    def __unicode__(self):
-        pass
-    
