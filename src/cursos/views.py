@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response, RequestContext, redirect
 from cursos.models import Unidad, Curso, Clase
+from examenes.models import *
 from django.db import models
 
 def home(request):
@@ -18,6 +19,7 @@ def cursodetalle(request, slug):
 	unidad = Unidad.objects.filter(curso_id=curso.id)
 	
 	listado_clases = Clase.objects.filter(unidad_id__in=unidad, curso_id=curso.id).order_by('sorting', 'nombre')
+	listado_examenes = Examen.objects.filter(curso_id=curso.id)
 	
 	return render_to_response("curso_detalle.html", 
 							  locals(), 

@@ -11,7 +11,12 @@ class Examen(models.Model):
     descripcion = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    examen_slug = models.SlugField(('slug'), max_length=60, blank=True, unique=True)
 
+    def save(self, *args, **kwargs):
+            self.examen_slug = slugify(self.nombre)
+            super(Examen, self).save(*args, **kwargs)
+   
     class Meta:
         verbose_name = ('Examen')
         verbose_name_plural = ('Examenes')
@@ -25,7 +30,7 @@ class Pregunta(models.Model):
         ('VF', 'Verdadeo o Falso'),
         ('T', 'Texto Libre'),
     )
-    tipo = models.CharField(max_length=20, choices=TIPOS_PREGUNTA)
+    tipo = models.CharField(max_length=20, choices=TIPOS_PREGUNTA, default='A')
     texto = models.TextField()
     
     class Meta:

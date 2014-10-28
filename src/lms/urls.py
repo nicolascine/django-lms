@@ -21,6 +21,12 @@ urlpatterns = patterns('',
     url(r'^cursos/(?P<slug>[-\w]+)/(?P<clase_slug>[-\w]+)/', 'cursos.views.clasedetalle', name='clasedetalle'),
     url(r'^curso/suscribirme/(?P<curso_id>\d+)/', 'cursos.views.suscribirme', name='suscribirme'),
 
+    ###
+    # EXAMENES
+    url(r'^examen/(?P<slug>[-\w]+)/(?P<examen_slug>[-\w]+)/', 'examenes.views.examandetalle', name='examandetalle'),
+
+
+
 
     url(r'^cuentas/', include('allauth.urls')),
     url(r'^micuenta/', 'micuenta.views.micuenta'),

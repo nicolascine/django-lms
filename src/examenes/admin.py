@@ -10,17 +10,17 @@ class RespuestaForm(forms.ModelForm):
 
   	class Meta:
 		model = Respuesta
-	
+
 	def clean_correcto(self):
  		
-		print "pregunta:", self.instance.pregunta_id, "ID respuesta:", self.instance.id, "Correcto:", self.instance.correcto
+		#print "pregunta:", self.instance.pregunta_id, "ID respuesta:", self.instance.id, "Correcto:", self.instance.correcto
 		
 		if self.cleaned_data['correcto'] == True:
 			k = Respuesta.objects.filter(pregunta_id=self.instance.pregunta_id)
 			for p in k:
 				if self.cleaned_data['correcto'] == p.correcto and self.instance.id != p.id:
 					raise forms.ValidationError("Ya existe una respuesta correcta")
-
+		
 		return self.cleaned_data['correcto']
 
 class RespuestaInline(admin.TabularInline):
@@ -63,6 +63,9 @@ class PreguntaEnExamenInline(admin.StackedInline):
 class ExamenAdmin(admin.ModelAdmin):
 
 	model = Examen
+
+	readonly_fields = ['examen_slug', ]
+
 
 	inlines = [
 		PreguntaEnExamenInline,
