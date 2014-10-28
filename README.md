@@ -3,7 +3,7 @@
 #idea
 - Learning management system on python Django 1.6.5
 
-#requeriments
+#requirements
 
 - Django==1.6.5
 - MySQL-python==1.2.5
