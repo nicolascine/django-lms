@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'cursos',
+    'examenes',
     'asignaciones',
     'micuenta',
     'easy_thumbnails',
