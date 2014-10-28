@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block pagetitle %}{{clase.nombre}}{% endblock %}
+
+{% block content %}
+	
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h4><a href="../../../cursos/{{curso.slug}}">Volver al Home del curso</a></h4>
+			<ul>
+				{% if anterior %}<li><a href="../{{ anterior.clase_slug }}" >Anterior</a></li>{% endif %}
+				{% if siguiente %}<li><a href="../{{ siguiente.clase_slug }}">Siguiente</a></li>{% endif %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			
+			<h2>{{examen.nombre}}</h2>
+			<h3>{{curso.nombre}}</h3>
+				{{examen.descripcion}}
+			
+		</div>
+	</div>
+
+
+</div>
+
+{% endblock %}

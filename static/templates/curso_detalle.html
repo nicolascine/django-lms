@@ -21,7 +21,17 @@
 					<li><a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}}</a></li>
 				{% endfor %}
 			</ul>
-
+			<br>
+			{% if listado_examenes %}
+			<h4>Listado de Examenes</h4>
+			<ul>
+				{% for examen in listado_examenes %}
+				<li>
+					<a href="../../examen/{{curso.slug}}/{{examen.examen_slug}}">{{examen.nombre}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
 		</div>
 	</div>
 
