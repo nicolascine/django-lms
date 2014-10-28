@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     ###
     # EXAMENES
     url(r'^examen/(?P<slug>[-\w]+)/(?P<examen_slug>[-\w]+)/', 'examenes.views.examandetalle', name='examandetalle'),
+    url(r'^(?P<slug>[-\w]+)/(?P<examen_slug>[-\w]+)/pregunta/(?P<pregunta_id>[-\w]+)/', 'examenes.views.preguntadetalle', name='preguntadetalle'),
 
 
 
