@@ -23,8 +23,18 @@
 			
 		</div>
 	</div>
+	{% if listado_preguntas %}
+	<div class="row">
+		<h5>Preguntas</h5>
+		
+		<ul>
+			{% for pregunta in listado_preguntas %}
+			<li><a href="../../../{{curso.slug}}/{{examen.examen_slug}}/pregunta/{{pregunta.id}}">{{pregunta.texto}}</a></li>
+			{% endfor %}
+		</ul>
 
-
+	</div>
+	{%  endif %}
 </div>
 
 {% endblock %}
