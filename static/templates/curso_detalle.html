@@ -18,7 +18,7 @@
 			
 			<ul>
 				{% for clase in listado_clases %}
-					<li><a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}}</a></li>
+					<li><a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}} / </a>Unidad: {{clase.unidad}}</li>
 				{% endfor %}
 			</ul>
 			<br>

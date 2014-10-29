@@ -20,11 +20,15 @@
 	<div class="row">
 		<h5>Alternativas:</h5>
 		
-		<ul>
+		<form action="">
+			
 			{% for respuesta in listado_respuestas %}
-			<li>{{respuesta.texto}}</li>
+			<p> <input type="radio" name="a" value="{{respuesta.id}}">  {{respuesta.texto}}</p>
 			{% endfor %}
-		</ul>
+		
+		<br>
+		<button value="send">Guardar respuesta</button>
+		</form>
 
 	</div>
 	{%  endif %}
