@@ -18,7 +18,13 @@ def cursodetalle(request, slug):
 	curso = Curso.objects.get(slug=slug)
 	unidad = Unidad.objects.filter(curso_id=curso.id)
 	
-	listado_clases = Clase.objects.filter(unidad_id__in=unidad, curso_id=curso.id).order_by('sorting', 'nombre')
+	listado_clases = Clase.objects.filter(unidad_id__in=unidad, curso_id=curso.id).order_by('unidad', 'sorting')
+	
+	unidades = []
+	for u in listado_clases:
+		 unidades.append(u.unidad.id)
+	unidades = list(set(unidades))
+
 	listado_examenes = Examen.objects.filter(curso_id=curso.id)
 	
 	return render_to_response("curso_detalle.html", 
