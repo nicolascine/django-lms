@@ -2,11 +2,12 @@ from django.db import models
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User 
-from cursos.models import Curso
+from cursos.models import Curso, Unidad
 
 
 class Examen(models.Model):
     curso = models.ForeignKey(Curso)
+    unidad = models.ForeignKey(Unidad)
     nombre = models.CharField(blank=False, null=False, unique=True, max_length=250)
     descripcion = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
