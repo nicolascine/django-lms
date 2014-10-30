@@ -38,6 +38,8 @@ class Unidad(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	curso = models.ForeignKey(Curso)
+	sorting = models.IntegerField("Orden", blank=False, null=False,
+		help_text="Numero para ordenar unidades")
 	
 	class Meta:
 		verbose_name_plural = "Unidades"
