@@ -80,11 +80,38 @@ class ClaseAdmin(admin.ModelAdmin):
 	                                    fields=self.list_editable, **defaults)
 
 
-class UnidadInline(admin.TabularInline):	
-	model = Unidad
+class UnidadForm(forms.ModelForm):
+
 
 	class Meta:
 		model = Unidad
+	
+	def clean_sorting(self):
+ 		
+		#print self.instance.id, "---", self.instance.sorting
+		k = Unidad.objects.filter(curso_id=self.instance.curso.id)
+		for p in k:
+			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
+				raise forms.ValidationError("Otra Unidad utiliza la posicion %s" % self.cleaned_data['sorting'])
+		return self.cleaned_data['sorting']
+
+class UnidadInline(admin.TabularInline):	
+	
+	model = Unidad
+	
+	form = UnidadForm
+
+	def get_changelist_formset(self, request, **kwargs):
+	 		
+			defaults = {
+	            "formfield_callback": partial(super(UnidadInline, self).formfield_for_dbfield, request=request),
+	            "form": UnidadForm,
+	        }
+			defaults.update(kwargs)
+
+			return modelformset_factory(Unidad,
+	                                    extra=0,
+	                                    fields=self.list_editable, **defaults)
 
 class CursoAdmin(admin.ModelAdmin):
 	inlines = [
