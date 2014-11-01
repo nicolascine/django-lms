@@ -45,7 +45,8 @@ class Unidad(models.Model):
 		verbose_name_plural = "Unidades"
 
 	def __unicode__(self):
-		return smart_unicode(self.nombre)
+		#return smart_unicode(self.nombre)
+		return '%s | %s ' % (self.sorting, smart_unicode(self.nombre))
 
 class Clase(models.Model):
 	curso = models.ForeignKey(Curso)
