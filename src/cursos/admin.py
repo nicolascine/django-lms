@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib import admin
 from functools import update_wrapper, partial
@@ -47,7 +48,7 @@ class ListaClaseForm(forms.ModelForm):
 
   	class Meta:
 		model = Clase
-	
+
 	def clean_sorting(self):
  		
 		#print self.instance.id, "---", self.instance.sorting
@@ -60,6 +61,29 @@ class ListaClaseForm(forms.ModelForm):
 class ClaseAdmin(admin.ModelAdmin):
 
 	form = ListaClaseForm
+	
+	# RE-ESCRIBE CONSULTAS A LA DB DE LOS FK --> MUESTRA EN LOS DROP DOWN, LOS CURSOS Y UNIDADES SEGUN EL curso indicado en la variable del _GET
+	##
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):       
+		
+		if '_changelist_filters' in request.GET:
+			cursoID = request.GET['_changelist_filters']
+			cursoID = re.sub("\D", "", cursoID)
+
+		if db_field.name == 'curso':
+			try:
+				kwargs['queryset'] = Curso.objects.filter(id=cursoID)
+			except NameError:
+				kwargs['queryset'] = Curso.objects.filter()
+
+		if db_field.name == 'unidad':
+			try:
+				kwargs['queryset'] = Unidad.objects.filter(curso_id=cursoID)
+			except NameError:
+				kwargs['queryset'] = Unidad.objects.filter()
+
+		return super(ClaseAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 	list_filter = (CountryFilter,)
 	ordering = ['sorting', ]
