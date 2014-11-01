@@ -64,7 +64,7 @@ class ClaseAdmin(admin.ModelAdmin):
 	list_filter = (CountryFilter,)
 	ordering = ['sorting', ]
 	list_editable = ['sorting', ] 
-	list_display = ['nombre', 'curso', 'sorting', ]
+	list_display = ['nombre', 'curso', 'unidad', 'sorting', ]
 	readonly_fields = ['clase_slug', 'sorting', ]
 
 	def get_changelist_formset(self, request, **kwargs):
