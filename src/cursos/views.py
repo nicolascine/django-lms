@@ -26,7 +26,7 @@ def cursodetalle(request, slug):
 	for u in listado_clases:
 		 unidades.append(u.unidad.id)
 	unidades = list(set(unidades))
-	print unidades
+	#print unidades
 
 	"""
 	for i, u in enumerate(unidades):
@@ -36,10 +36,10 @@ def cursodetalle(request, slug):
 	for i in xrange(len(unidades)):
 		#temp = [key,value]
 		numerounidades.append(i+1)
-	print numerounidades 
+	#print numerounidades 
 	#listadoClaseUnidad = dict(zip(numerounidades, zip(unidades)))
 	listadoClaseUnidad = dict(zip(numerounidades, unidades))
-	print listadoClaseUnidad
+	#print listadoClaseUnidad
 	listado_examenes = Examen.objects.filter(curso_id=curso.id)
 	
 	return render_to_response("curso_detalle.html", 
