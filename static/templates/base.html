@@ -54,14 +54,10 @@
             	         <li><a href="/micuenta/">Hola {{ request.user.username }} !</a></li>
             	    {% endif %}
                    <!--{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}-->
-                  
-                  <li><a href="{% url "account_logout" %}" class="pull-right">Salir</a></li>
-            	  
-            	 
-            	{% else %}
-            	     <li><a href="{% url "account_login" %}" class="pull-right">Entrar</a></li>
+            	
+              {% else %}
+                   <li><a href="{% url "account_login" %}" class="pull-right">Entrar</a></li>
             	{% endif %}
-
 
             </ul>
 

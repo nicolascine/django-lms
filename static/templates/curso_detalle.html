@@ -16,22 +16,35 @@
 			<br>
 			<h4>Listado de clases</h4>
 			
-			<ul>
-				{% for clase in listado_clases %}
-					<li><a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}} / </a>Unidad: {{clase.unidad}}</li>
+
+			{% for uni, listaunidad in listadoClaseUnidad.items %}
+
+				<h4>Unidad {{uni}}:
+				
+				{% for u in unidad %}
+
+					{% if u.sorting == uni %}
+
+						{{u.nombre}}
+
+					{% endif %}
+
 				{% endfor %}
-			</ul>
-			<br>
-			{% if listado_examenes %}
-			<h4>Listado de Examenes</h4>
-			<ul>
+				
+				</h4>
+				
+				<ul>{% for clase in listado_clases %}
+					{% if clase.unidad.id == listaunidad%}
+					<li>{{clase.sorting}}. <a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}}</a></li>
+					{% endif %}{% endfor %}
 				{% for examen in listado_examenes %}
-				<li>
-					<a href="../../examen/{{curso.slug}}/{{examen.examen_slug}}">{{examen.nombre}}</a>
-				</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
+					{% if examen.unidad.id == listaunidad%}
+					<li>
+					e. <a href="../../examen/{{curso.slug}}/{{examen.examen_slug}}">{{examen.nombre}}</a>
+					</li>
+					{% endif %}{% endfor %}
+				</ul>
+			{% endfor %}
 		</div>
 	</div>
 
