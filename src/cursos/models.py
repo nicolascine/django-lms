@@ -38,9 +38,17 @@ class Unidad(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	curso = models.ForeignKey(Curso)
-	sorting = models.IntegerField("Orden", blank=False, null=False,
+	sorting = models.IntegerField("Orden", blank=True, null=True,
 		help_text="Numero para ordenar unidades")
 	
+	def save(self, *args, **kwargs):
+		ultima = Unidad.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
+		if not self.id: 
+			if ultima['sorting__max'] == None:
+				ultima['sorting__max'] = 0
+			self.sorting = (ultima['sorting__max']) + 1
+		super(Unidad, self).save(*args, **kwargs)
+
 	class Meta:
 		verbose_name_plural = "Unidades"
 

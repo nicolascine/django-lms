@@ -88,13 +88,9 @@ class ClaseAdmin(admin.ModelAdmin):
 
 class UnidadForm(forms.ModelForm):
 
-
 	class Meta:
 		model = Unidad
-	
 	def clean_sorting(self):
- 		
-		#print self.instance.id, "---", self.instance.sorting
 		k = Unidad.objects.filter(curso_id=self.instance.curso.id)
 		for p in k:
 			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
