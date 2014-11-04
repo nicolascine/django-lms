@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User 
@@ -45,6 +46,16 @@ class Pregunta(models.Model):
 class PreguntaEnExamen(models.Model):
     examen = models.ForeignKey(Examen)
     pregunta = models.ForeignKey(Pregunta)
+    sorting = models.IntegerField("Orden", blank=True, null=False,
+        help_text="Numero para ordenar Preguntas")
+    
+    def save(self, *args, **kwargs):
+        ultima = PreguntaEnExamen.objects.filter(examen_id=self.examen.id).aggregate(Max('sorting'))
+        if not self.id: 
+            if ultima['sorting__max'] == None:
+                ultima['sorting__max'] = 0
+            self.sorting = (ultima['sorting__max']) + 1
+        super(PreguntaEnExamen, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = ('Pregunta del Examen')
