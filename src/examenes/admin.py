@@ -49,17 +49,25 @@ class PreguntaAdmin(admin.ModelAdmin):
 
 
 class PreguntaEnExamenForm(forms.ModelForm):
-	class Meta:
-		model = PreguntaEnExamen
+
+
+
 	def clean_sorting(self):
 		k = PreguntaEnExamen.objects.filter(examen_id=self.instance.examen.id)
 		for p in k:
 			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
 				raise forms.ValidationError("Otra pregunta utiliza la posicion %s" % self.cleaned_data['sorting'])
 		return self.cleaned_data['sorting']
+
+	class Meta:
+		model = PreguntaEnExamen
+
+
 class PreguntaEnExamenInline(admin.TabularInline):
+
 	model = PreguntaEnExamen
 	form = PreguntaEnExamenForm
+
 	def get_changelist_formset(self, request, **kwargs):
 			defaults = {
 	            "formfield_callback": partial(super(PreguntaEnExamenInline, self).formfield_for_dbfield, request=request),
@@ -74,10 +82,13 @@ class PreguntaEnExamenInline(admin.TabularInline):
 
 
 class ExamenAdmin(admin.ModelAdmin):
+
 	readonly_fields = ['examen_slug', ]
 	inlines = [
 		PreguntaEnExamenInline,
 	]
+
+
 	class Meta:
 		model = Examen
 
