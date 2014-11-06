@@ -25,7 +25,7 @@ class Examen(models.Model):
     
     def __unicode__(self):
         return smart_unicode(self.nombre)
-   
+
 class Pregunta(models.Model):
     TIPOS_PREGUNTA = (
         ('A', 'Alternativas'),
@@ -41,7 +41,6 @@ class Pregunta(models.Model):
 
     def __unicode__(self):
         return smart_unicode(self.texto)
-        
 
 class PreguntaEnExamen(models.Model):
     examen = models.ForeignKey(Examen)
@@ -75,5 +74,3 @@ class Respuesta(models.Model):
 
     def __unicode__(self):
         return smart_unicode(self.texto)
-    
-
