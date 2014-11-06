@@ -2,13 +2,12 @@ import re
 from django import forms
 from django.contrib import admin
 from functools import update_wrapper, partial
-from django.forms.models import (modelform_factory, modelformset_factory,
-                                 inlineformset_factory, BaseInlineFormSet)
+from django.forms.models import (modelform_factory, modelformset_factory, inlineformset_factory, BaseInlineFormSet)
 from django.contrib.admin import ModelAdmin, SimpleListFilter
 from .models import Area, Curso, Clase, Unidad
 
 class ClaseFilter(SimpleListFilter):
-	title = 'curso' # or use _('curso') for translated title
+	title = 'curso' # _('curso')
 	parameter_name = 'curso'
 
 	def lookups(self, request, model_admin):
@@ -25,7 +24,6 @@ class AreaAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Area
 
-
 class ListaClaseForm(forms.ModelForm):
 
   	class Meta:
@@ -33,7 +31,6 @@ class ListaClaseForm(forms.ModelForm):
 
 	def clean_sorting(self):
  		
-		#print self.instance.id, "---", self.instance.sorting
 		k = Clase.objects.filter(curso_id=self.instance.curso.id)
 		for p in k:
 			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
@@ -43,9 +40,10 @@ class ListaClaseForm(forms.ModelForm):
 class ClaseAdmin(admin.ModelAdmin):
 
 	form = ListaClaseForm
-	
-	# RE-ESCRIBE CONSULTAS A LA DB DE LOS FK --> MUESTRA EN LOS DROP DOWN, LOS CURSOS Y UNIDADES SEGUN EL curso indicado en la variable del _GET
-	##
+
+	# RE-ESCRIBE CONSULTAS A LA DB DE LOS FK --> 
+	# MUESTRA EN LOS DROP DOWN, LOS CURSOS Y UNIDADES SEGUN 
+	# EL curso indicado en la variable del _GET
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):       
 		
 		if '_changelist_filters' in request.GET:
@@ -85,11 +83,11 @@ class ClaseAdmin(admin.ModelAdmin):
 	                                    extra=0,
 	                                    fields=self.list_editable, **defaults)
 
-
 class UnidadForm(forms.ModelForm):
 
 	class Meta:
 		model = Unidad
+		
 	def clean_sorting(self):
 		k = Unidad.objects.filter(curso_id=self.instance.curso.id)
 		for p in k:
@@ -97,10 +95,9 @@ class UnidadForm(forms.ModelForm):
 				raise forms.ValidationError("Otra Unidad utiliza la posicion %s" % self.cleaned_data['sorting'])
 		return self.cleaned_data['sorting']
 
-class UnidadInline(admin.TabularInline):	
+class UnidadInline(admin.TabularInline):
 	
 	model = Unidad
-	
 	form = UnidadForm
 
 	def get_changelist_formset(self, request, **kwargs):
@@ -111,10 +108,7 @@ class UnidadInline(admin.TabularInline):
 	        }
 			defaults.update(kwargs)
 
-			return modelformset_factory(Unidad,
-	                                    extra=0,
-	                                    fields=self.list_editable, **defaults)
-
+			return modelformset_factory(Unidad, extra=0, fields=self.list_editable, **defaults)
 class CursoAdmin(admin.ModelAdmin):
 	inlines = [
         UnidadInline,
