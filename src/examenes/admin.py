@@ -1,14 +1,12 @@
 from django import forms
 from django.contrib import admin
 from functools import update_wrapper, partial
-from django.forms.models import (modelform_factory, modelformset_factory,
-                                 inlineformset_factory, BaseInlineFormSet)
+from django.forms.models import (modelform_factory, modelformset_factory,inlineformset_factory, BaseInlineFormSet)
 from .models import Examen, Pregunta, PreguntaEnExamen, Respuesta
-
 
 class RespuestaForm(forms.ModelForm):
 
-  	class Meta:
+	class Meta:
 		model = Respuesta
 
 	def clean_correcto(self):
@@ -31,26 +29,17 @@ class RespuestaInline(admin.TabularInline):
 	        }
 			defaults.update(kwargs)
 
-			return modelformset_factory(Respuesta,
-	                                    extra=0,
-	                                    fields=self.list_editable, **defaults)
-
+			return modelformset_factory(Respuesta,extra=0,fields=self.list_editable, **defaults)
 
 class PreguntaAdmin(admin.ModelAdmin):
 	
 	model = Pregunta
-
-	inlines = [
-		RespuestaInline,
-	]
+	inlines = [ RespuestaInline,]
 
 	class Meta:
 		model = Pregunta
 
-
 class PreguntaEnExamenForm(forms.ModelForm):
-
-
 
 	def clean_sorting(self):
 		k = PreguntaEnExamen.objects.filter(examen_id=self.instance.examen.id)
@@ -74,9 +63,8 @@ class PreguntaEnExamenInline(admin.TabularInline):
 	            "form": PreguntaEnExamenForm,
 	        }
 			defaults.update(kwargs)
-			return modelformset_factory(PreguntaEnExamen,
-	                                    extra=0,
-	                                    fields=self.list_editable, **defaults)
+			return modelformset_factory(PreguntaEnExamen,extra=0,fields=self.list_editable, **defaults)
+	
 	class Meta:
 		model = PreguntaEnExamen
 
@@ -84,10 +72,7 @@ class PreguntaEnExamenInline(admin.TabularInline):
 class ExamenAdmin(admin.ModelAdmin):
 
 	readonly_fields = ['examen_slug', ]
-	inlines = [
-		PreguntaEnExamenInline,
-	]
-
+	inlines = [PreguntaEnExamenInline,]
 
 	class Meta:
 		model = Examen
