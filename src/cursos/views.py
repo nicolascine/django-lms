@@ -26,7 +26,7 @@ def cursodetalle(request, slug):
 	for u in listado_clases:
 		 unidades.append(u.unidad.id)
 	unidades = list(set(unidades))
-	#print unidades
+
 
 	"""
 	for i, u in enumerate(unidades):
@@ -36,10 +36,8 @@ def cursodetalle(request, slug):
 	for i in xrange(len(unidades)):
 		#temp = [key,value]
 		numerounidades.append(i+1)
-	#print numerounidades 
 	#listadoClaseUnidad = dict(zip(numerounidades, zip(unidades)))
 	listadoClaseUnidad = dict(zip(numerounidades, unidades))
-	#print listadoClaseUnidad
 	listado_examenes = Examen.objects.filter(curso_id=curso.id)
 	
 	return render_to_response("curso_detalle.html", 
@@ -51,7 +49,6 @@ def clasedetalle(request, slug, clase_slug):
 		#return HttpResponse("Necesitas Loguearte!")
 		 return redirect('/cuentas/entrar/')
 	else:
-		#listado_clases = Clase.objects.filter(curso=curso_id)
 		curso = Curso.objects.get(slug=slug)
 		unidad = Unidad.objects.filter(curso_id=curso.id)
 		clase = Clase.objects.get(clase_slug=clase_slug)
@@ -82,4 +79,4 @@ def suscribirme(request, curso_id):
 	curso = Curso.objects.get(id=curso_id)
 	return render_to_response("suscribirme.html", 
 							  locals(), 
-							  context_instance = RequestContext(request))	
+							  context_instance = RequestContext(request))
