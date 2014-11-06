@@ -3,12 +3,6 @@ from django.db.models import Max
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User 
-"""
-from django.core.exceptions import ValidationError
-from django import forms
-
-from django.contrib import messages
-"""
 
 class Area(models.Model):
 	nombre = models.CharField(null=False, blank=False, max_length=200)
@@ -53,7 +47,6 @@ class Unidad(models.Model):
 		verbose_name_plural = "Unidades"
 
 	def __unicode__(self):
-		#return smart_unicode(self.nombre)
 		return '%s | %s ' % (self.sorting, smart_unicode(self.nombre))
 
 class Clase(models.Model):
@@ -70,11 +63,11 @@ class Clase(models.Model):
 	def save(self, *args, **kwargs):
 
 		self.clase_slug = slugify(self.nombre)
+
 		# logica: si no existe ID (solo cuando se crea el objeto), busca el ultimo numero(sorting)
 		# y se incrementa en 1. Si es la primera clase del curso reemplaza el sorting__max = None, por int(0),
 		# quedando con sorting = 1
 		ultimo = Clase.objects.filter(curso_id=self.curso.id).aggregate(Max('sorting'))
-
 		if not self.id:
 			if ultimo['sorting__max'] == None:
 				ultimo['sorting__max'] = 0
