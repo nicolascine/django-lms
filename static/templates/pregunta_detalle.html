@@ -29,7 +29,10 @@
 		<br>
 		<button value="send">Guardar respuesta</button>
 		</form>
-		<a href="#">Siguiente pregunta</a>
+		<ul>
+{% if anterior %}<li><a href="../{{ anterior.id }}" >Anterior</a></li>{% endif %}
+{% if siguiente %}<li><a href="../{{ siguiente.id }}">Siguiente</a></li>{% endif %}
+		</ul>
 
 	</div>
 	{%  endif %}
