@@ -45,7 +45,7 @@ class Pregunta(models.Model):
 class PreguntaEnExamen(models.Model):
     examen = models.ForeignKey(Examen)
     pregunta = models.ForeignKey(Pregunta)
-    sorting = models.IntegerField("Orden", blank=True, null=False,
+    sorting = models.IntegerField("Orden", blank=True, null=True,
         help_text="Numero para ordenar Preguntas")
     
     def save(self, *args, **kwargs):
