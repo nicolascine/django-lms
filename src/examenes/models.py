@@ -34,6 +34,7 @@ class Pregunta(models.Model):
     )
     tipo = models.CharField(max_length=20, choices=TIPOS_PREGUNTA, default='A')
     texto = models.TextField()
+    examen = models.ForeignKey(Examen)
     
     class Meta:
         verbose_name = ('Pregunta')
