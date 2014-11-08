@@ -21,6 +21,7 @@ class RespuestaForm(forms.ModelForm):
 class RespuestaInline(admin.TabularInline):
 	model = Respuesta
 	form = RespuestaForm
+	
 	def get_changelist_formset(self, request, **kwargs):
 	 		
 			defaults = {
@@ -38,6 +39,31 @@ class PreguntaAdmin(admin.ModelAdmin):
 
 	class Meta:
 		model = Pregunta
+
+
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):
+
+		
+
+		"""
+		if '_changelist_filters' in request.GET:
+			cursoID = request.GET['_changelist_filters']
+			cursoID = re.sub("\D", "", cursoID)
+
+		if db_field.name == 'curso':
+			try:
+				kwargs['queryset'] = Curso.objects.filter(id=cursoID)
+			except NameError:
+				kwargs['queryset'] = Curso.objects.filter()
+
+		if db_field.name == 'unidad':
+			try:
+				kwargs['queryset'] = Unidad.objects.filter(curso_id=cursoID)
+			except NameError:
+				kwargs['queryset'] = Unidad.objects.filter()
+		"""
+		return super(PreguntaAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	
 
 class PreguntaEnExamenForm(forms.ModelForm):
 
@@ -64,7 +90,24 @@ class PreguntaEnExamenInline(admin.TabularInline):
 	        }
 			defaults.update(kwargs)
 			return modelformset_factory(PreguntaEnExamen,extra=0,fields=self.list_editable, **defaults)
-	
+	"""
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):       
+		arraypregexam = PreguntaEnExamen.objects.filter()
+		arraypreg = []
+		for x in arraypregexam:
+			arraypreg.append(x.pregunta_id)
+		print arraypreg
+		if db_field.name == 'pregunta':
+			kwargs['queryset'] = Pregunta.objects.filter().exclude(id__in=arraypreg)
+		
+		if db_field.name == 'pregunta':
+			if object_id_list:
+				kwargs['queryset'] = Pregunta.objects.filter().exclude(id__in=object_id_list)
+			else:
+				kwargs['queryset'] = Pregunta.objects.filter()
+		return super(PreguntaEnExamenInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	"""
+
 	class Meta:
 		model = PreguntaEnExamen
 
