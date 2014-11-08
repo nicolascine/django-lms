@@ -43,7 +43,7 @@ class PreguntaAdmin(admin.ModelAdmin):
 
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
-		
+		print request.path
 
 		"""
 		if '_changelist_filters' in request.GET:
@@ -82,6 +82,8 @@ class PreguntaEnExamenInline(admin.TabularInline):
 
 	model = PreguntaEnExamen
 	form = PreguntaEnExamenForm
+	extra = 3
+	template = "admin/examenes/PreguntaEnExamen/edit_inline/tabular.html"
 
 	def get_changelist_formset(self, request, **kwargs):
 			defaults = {
