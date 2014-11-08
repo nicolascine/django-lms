@@ -66,6 +66,7 @@ class ClaseAdmin(admin.ModelAdmin):
 
 
 	list_filter = (ClaseFilter,)
+	search_fields   = ('nombre',)
 	ordering = ['sorting', ]
 	list_editable = ['sorting', ] 
 	list_display = ['nombre', 'curso', 'unidad', 'sorting', ]
