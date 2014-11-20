@@ -24,36 +24,32 @@ def examandetalle(request, slug, examen_slug):
 
 def preguntadetalle(request, slug, examen_slug, pregunta_id):
 	if not request.user.is_authenticated():
-		#return HttpResponse("Necesitas Loguearte!")
 		 return redirect('/cuentas/entrar/')
 	else:
 		curso = Curso.objects.get(slug=slug)
 		examen = Examen.objects.get(examen_slug=examen_slug)
 		pregunta = Pregunta.objects.get(id=pregunta_id)
 		pregenExam = PreguntaEnExamen.objects.get(pregunta_id = pregunta.id)
-		
+
 		def pregunta_siguiente(numero):
 			try:
 				obj = PreguntaEnExamen.objects.get(examen_id = examen.id, sorting=(numero+1))
-				next = Pregunta.objects.get(id = obj.id)
+				next = Pregunta.objects.get(preguntaenexamen = obj.id)
 				return next
 			except PreguntaEnExamen.DoesNotExist:
 				return None
+
 		def pregunta_anterior(numero):
 			try:
 				obj = PreguntaEnExamen.objects.get(examen_id = examen.id, sorting=(numero-1))
-				prev = Pregunta.objects.get(id = obj.id)
+				prev = Pregunta.objects.get(preguntaenexamen = obj.id)
 				return prev
 			except PreguntaEnExamen.DoesNotExist:
 				return None
-		
-		anterior = pregunta_anterior(pregenExam.sorting)
-		siguiente = pregunta_siguiente(pregenExam.sorting)
-		
-		print "PREGUNTA:", pregunta
-		print "ANTERIOR:", anterior
-		print "SIGUIENTE:", siguiente
 
+		siguiente = pregunta_siguiente(pregenExam.sorting)
+		anterior = pregunta_anterior(pregenExam.sorting)
+		
 		listado_respuestas = Respuesta.objects.filter(pregunta_id=pregunta.id)
 
 		return render_to_response("pregunta_detalle.html", 
