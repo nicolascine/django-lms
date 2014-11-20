@@ -67,7 +67,6 @@
 </fieldset>
   </div>
 </div>
-
 <script type="text/javascript">
 
 (function($) {
@@ -77,7 +76,32 @@
     addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
     deleteText: "{% trans 'Remove' %}"
   });
+
 })(django.jQuery);
+</script>
 
+<script>
+var url = window.location.pathname;
+var arreglo = url.split('/');
+var id_examen = arreglo.slice(-2)[0];
 
+/*
+* REWRITE showAddAnotherPopup function FROM RelatedObjectLookups.js
+* Original: django/contrib/admin/static/admin/js/admin/RelatedObjectLookups.js
+* Rewrite: static/static/admin/js/admin/RelatedObjectLookups.js
+*/
+
+function showAddAnotherPopup(triggeringLink) {
+     var name = triggeringLink.id.replace(/^add_/, '');
+     name = id_to_windowname(name);
+     href = triggeringLink.href
+     if (href.indexOf('?') == -1) {
+         href += '?_popup=1&id_examen=' + id_examen;
+     } else {
+         href  += '&_popup=1&id_examen=' + id_examen;
+     }
+     var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
+     win.focus();
+     return false;
+ }
 </script>
