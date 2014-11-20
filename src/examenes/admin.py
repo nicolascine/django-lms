@@ -49,6 +49,7 @@ class PreguntaAdmin(admin.ModelAdmin):
 		if db_field.name == 'examen':
 			try:
 				kwargs['queryset'] = Examen.objects.filter(id=id_examen)
+				kwargs['initial'] = Examen.objects.filter(id=id_examen)
 			except NameError:
 				kwargs['queryset'] = Examen.objects.filter()
 
