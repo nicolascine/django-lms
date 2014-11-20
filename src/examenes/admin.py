@@ -4,6 +4,7 @@ from functools import update_wrapper, partial
 from django.forms.models import (modelform_factory, modelformset_factory,inlineformset_factory, BaseInlineFormSet)
 from .models import Examen, Pregunta, PreguntaEnExamen, Respuesta
 
+
 class RespuestaForm(forms.ModelForm):
 
 	class Meta:
@@ -73,6 +74,8 @@ class PreguntaEnExamenForm(forms.ModelForm):
 			if p.sorting == self.cleaned_data['sorting'] and p.id != self.instance.id:
 				raise forms.ValidationError("Otra pregunta utiliza la posicion %s" % self.cleaned_data['sorting'])
 		return self.cleaned_data['sorting']
+
+	
 
 	class Meta:
 		model = PreguntaEnExamen
