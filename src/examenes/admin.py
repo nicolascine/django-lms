@@ -44,25 +44,15 @@ class PreguntaAdmin(admin.ModelAdmin):
 
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
-		print request.path
+		id_examen = request.GET['id_examen']
 
-		"""
-		if '_changelist_filters' in request.GET:
-			cursoID = request.GET['_changelist_filters']
-			cursoID = re.sub("\D", "", cursoID)
-
-		if db_field.name == 'curso':
+		if db_field.name == 'examen':
 			try:
-				kwargs['queryset'] = Curso.objects.filter(id=cursoID)
+				kwargs['queryset'] = Examen.objects.filter(id=id_examen)
 			except NameError:
-				kwargs['queryset'] = Curso.objects.filter()
+				kwargs['queryset'] = Examen.objects.filter()
 
-		if db_field.name == 'unidad':
-			try:
-				kwargs['queryset'] = Unidad.objects.filter(curso_id=cursoID)
-			except NameError:
-				kwargs['queryset'] = Unidad.objects.filter()
-		"""
+
 		return super(PreguntaAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 	
 
@@ -95,8 +85,11 @@ class PreguntaEnExamenInline(admin.TabularInline):
 	        }
 			defaults.update(kwargs)
 			return modelformset_factory(PreguntaEnExamen,extra=0,fields=self.list_editable, **defaults)
+
 	"""
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):       
+		
+		
 		arraypregexam = PreguntaEnExamen.objects.filter()
 		arraypreg = []
 		for x in arraypregexam:
