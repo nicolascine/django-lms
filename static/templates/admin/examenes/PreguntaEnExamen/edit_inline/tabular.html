@@ -92,6 +92,12 @@ var id_examen = arreglo.slice(-2)[0];
 */
 
 function showAddAnotherPopup(triggeringLink) {
+  
+    if (id_examen == 'add'){
+      alert("Debes guardar el examen antes de agregar preguntas");
+      return false;
+    }
+    
      var name = triggeringLink.id.replace(/^add_/, '');
      name = id_to_windowname(name);
      href = triggeringLink.href
