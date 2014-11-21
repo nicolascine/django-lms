@@ -62,7 +62,7 @@ class PreguntaEnExamen(models.Model):
         verbose_name_plural = ('Preguntas del Examen')
 
     def __unicode__(self):
-        pass
+        return smart_unicode(self.pregunta)
 
 class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta)

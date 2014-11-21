@@ -22,6 +22,7 @@ class RespuestaForm(forms.ModelForm):
 class RespuestaInline(admin.TabularInline):
 	model = Respuesta
 	form = RespuestaForm
+	extra = 1
 	
 	def get_changelist_formset(self, request, **kwargs):
 	 		
@@ -30,7 +31,6 @@ class RespuestaInline(admin.TabularInline):
 	            "form": RespuestaForm,
 	        }
 			defaults.update(kwargs)
-
 			return modelformset_factory(Respuesta,extra=0,fields=self.list_editable, **defaults)
 
 class PreguntaAdmin(admin.ModelAdmin):
@@ -44,13 +44,16 @@ class PreguntaAdmin(admin.ModelAdmin):
 
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
-		id_examen = request.GET['id_examen']
 
 		if db_field.name == 'examen':
 			try:
-				kwargs['queryset'] = Examen.objects.filter(id=id_examen)
-				kwargs['initial'] = Examen.objects.filter(id=id_examen)
-			except NameError:
+				if request.GET['id_examen']:
+					id_examen = request.GET['id_examen']
+					kwargs['queryset'] = Examen.objects.filter(id=id_examen)
+					kwargs['initial'] = Examen.objects.filter(id=id_examen)
+				else:
+					pass
+			except:
 				kwargs['queryset'] = Examen.objects.filter()
 
 
@@ -66,11 +69,15 @@ class PreguntaEnExamenForm(forms.ModelForm):
 				raise forms.ValidationError("Otra pregunta utiliza la posicion %s" % self.cleaned_data['sorting'])
 		return self.cleaned_data['sorting']
 
-	
+	def clean_pregunta(self):
+		preguntasEnExamen = PreguntaEnExamen.objects.filter()
+		for pregEnExam in preguntasEnExamen:
+			if pregEnExam.pregunta_id == self.cleaned_data['pregunta'].id and pregEnExam.id != self.instance.id:
+				raise forms.ValidationError("Esta pregunta ya esta ingresada en el examen")
 
+		return self.cleaned_data['pregunta']
 	class Meta:
 		model = PreguntaEnExamen
-
 
 class PreguntaEnExamenInline(admin.TabularInline):
 
@@ -86,26 +93,15 @@ class PreguntaEnExamenInline(admin.TabularInline):
 	        }
 			defaults.update(kwargs)
 			return modelformset_factory(PreguntaEnExamen,extra=0,fields=self.list_editable, **defaults)
+	
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):
+		id_examen = int([i for i in str(request.path).split('/') if i][-1])
 
-	"""
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):       
-		
-		
-		arraypregexam = PreguntaEnExamen.objects.filter()
-		arraypreg = []
-		for x in arraypregexam:
-			arraypreg.append(x.pregunta_id)
-		print arraypreg
 		if db_field.name == 'pregunta':
-			kwargs['queryset'] = Pregunta.objects.filter().exclude(id__in=arraypreg)
-		
-		if db_field.name == 'pregunta':
-			if object_id_list:
-				kwargs['queryset'] = Pregunta.objects.filter().exclude(id__in=object_id_list)
-			else:
-				kwargs['queryset'] = Pregunta.objects.filter()
+			#kwargs['queryset'] = PreguntaEnExamen.objects.filter().exclude(id__in=arraypreg)
+			kwargs['queryset'] = Pregunta.objects.filter(examen_id = id_examen)
+
 		return super(PreguntaEnExamenInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
-	"""
 
 	class Meta:
 		model = PreguntaEnExamen
