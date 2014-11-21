@@ -95,11 +95,14 @@ class PreguntaEnExamenInline(admin.TabularInline):
 			return modelformset_factory(PreguntaEnExamen,extra=0,fields=self.list_editable, **defaults)
 	
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		id_examen = int([i for i in str(request.path).split('/') if i][-1])
 
-		if db_field.name == 'pregunta':
-			#kwargs['queryset'] = PreguntaEnExamen.objects.filter().exclude(id__in=arraypreg)
-			kwargs['queryset'] = Pregunta.objects.filter(examen_id = id_examen)
+		try:
+			id_examen = int([i for i in str(request.path).split('/') if i][-1])
+			if db_field.name == 'pregunta':
+				#kwargs['queryset'] = PreguntaEnExamen.objects.filter().exclude(id__in=arraypreg)
+				kwargs['queryset'] = Pregunta.objects.filter(examen_id = id_examen)
+		except:
+			pass
 
 		return super(PreguntaEnExamenInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
