@@ -1,13 +1,13 @@
 from django.shortcuts import render, render_to_response, RequestContext, redirect
 from cursos.models import Unidad, Curso, Clase
-from examenes.models import *
+from examenes.models import Examen, PreguntaEnExamen, Pregunta, Respuesta, RespuestasDelUsuario
 from django.db import models
 
-""" imports para Formu Examen """
-from forms import RespuestasDelUsuario
+
+"""imports para Formu Examen """
+from forms import UsuarioFormuRespuestas
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
-
 
 def examandetalle(request, slug, examen_slug):
 	if not request.user.is_authenticated():
@@ -58,16 +58,22 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 		listado_respuestas = Respuesta.objects.filter(pregunta_id=pregunta.id)
 
 		""" IF IS POST (SEND ANSWER) """
+
+		marca = RespuestasDelUsuario.objects.filter(pregunta_id = pregunta_id, user_id = request.user.id)
+
+		for m in marca:
+			print m.respuesta_id
+
 		if request.POST:
-			form = RespuestasDelUsuario(request.POST)
+			form = UsuarioFormuRespuestas(request.POST)
 			if form.is_valid():
 				obj = form.save(commit=False)
 				obj.user = request.user
 				obj.pregunta = pregunta
 				obj.save()
-				return HttpResponseRedirect('/')
+				#return HttpResponseRedirect('/')
 		else:
-		    form = RespuestasDelUsuario()
+		    form = UsuarioFormuRespuestas()
 		 
 		args = {}
 		args.update(csrf(request))
