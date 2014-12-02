@@ -5,7 +5,9 @@
 	
 <div class="container">
 	
-
+	<form action="../../pregunta/{{pregunta.id}}/" method="post">
+	{% csrf_token %}
+	
 	<div class="row">
 		<div class="col-md-12">
 			<small>{{curso.nombre}}</small>
@@ -20,15 +22,23 @@
 	<div class="row">
 		<h5>Alternativas:</h5>
 		
-		<form action="">
+
 			
 			{% for respuesta in listado_respuestas %}
-			<p> <input type="radio" name="a" value="{{respuesta.id}}">  {{respuesta.texto}}</p>
+			<p> <input type="radio" name="respuesta" value="{{respuesta.id}}" />  {{respuesta.texto}}</p>
 			{% endfor %}
-		
+
 		<br>
-		<button value="send">Guardar respuesta</button>
-		</form>
+	
+
+	
+	<input type="submit" name="submit" value="Guardar Respuesta" />
+	</form>
+
+
+
+
+
 		<ul>
 {% if anterior %}<li><a href="../{{ anterior.id }}" >Anterior</a></li>{% endif %}
 {% if siguiente %}<li><a href="../{{ siguiente.id }}">Siguiente</a></li>{% endif %}
