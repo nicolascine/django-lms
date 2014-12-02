@@ -75,3 +75,21 @@ class Respuesta(models.Model):
 
     def __unicode__(self):
         return smart_unicode(self.texto)
+
+""" Modelo guarda RESPUESTA de usuario """
+
+class RespuestasDelUsuario(models.Model):
+    user = models.ForeignKey(User)
+    pregunta = models.ForeignKey(Pregunta)
+    respuesta = models.ForeignKey(Respuesta)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return smart_unicode(self.timestamp)
+
+""" Modelo guarda INTENTOS de usuario (Puede dar el examen hasta aprobarlo . . . ) """
+ 
+
+
+
