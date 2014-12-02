@@ -3,6 +3,11 @@ from cursos.models import Unidad, Curso, Clase
 from examenes.models import *
 from django.db import models
 
+""" imports para Formu Examen """
+from forms import RespuestasDelUsuario
+from django.http import HttpResponseRedirect
+from django.core.context_processors import csrf
+
 
 def examandetalle(request, slug, examen_slug):
 	if not request.user.is_authenticated():
@@ -51,6 +56,23 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 		anterior = pregunta_anterior(pregenExam.sorting)
 		
 		listado_respuestas = Respuesta.objects.filter(pregunta_id=pregunta.id)
+
+		""" IF IS POST (SEND ANSWER) """
+		if request.POST:
+			form = RespuestasDelUsuario(request.POST)
+			if form.is_valid():
+				obj = form.save(commit=False)
+				obj.user = request.user
+				obj.pregunta = pregunta
+				obj.save()
+				return HttpResponseRedirect('/')
+		else:
+		    form = RespuestasDelUsuario()
+		 
+		args = {}
+		args.update(csrf(request))
+		
+		args['form'] = form
 
 		return render_to_response("pregunta_detalle.html", 
 								  locals(),
