@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, RequestContext, redirec
 from cursos.models import Unidad, Curso, Clase
 from examenes.models import Examen, PreguntaEnExamen, Pregunta, Respuesta, RespuestasDelUsuario
 from django.db import models
-
+from django.contrib import messages
 
 """imports para Formu Examen """
 from forms import UsuarioFormuRespuestas
@@ -57,21 +57,32 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 		
 		listado_respuestas = Respuesta.objects.filter(pregunta_id=pregunta.id)
 
+
+
 		""" IF IS POST (SEND ANSWER) """
 
-		marca = RespuestasDelUsuario.objects.filter(pregunta_id = pregunta_id, user_id = request.user.id)
-
-		for m in marca:
-			print m.respuesta_id
+		try:
+			marca = RespuestasDelUsuario.objects.get(pregunta_id = pregunta_id, user_id = request.user.id)
+			#M = [s.respuesta_id for s in marca] #for filter
+			M = [marca.respuesta_id]
+			hayMarca = True
+		except RespuestasDelUsuario.DoesNotExist:
+			hayMarca = False
+			pass
 
 		if request.POST:
-			form = UsuarioFormuRespuestas(request.POST)
+			if hayMarca == True:
+				form = UsuarioFormuRespuestas(request.POST or None, instance = marca)
+			else:
+				form = UsuarioFormuRespuestas(request.POST or None)
 			if form.is_valid():
 				obj = form.save(commit=False)
 				obj.user = request.user
 				obj.pregunta = pregunta
 				obj.save()
+				messages.success(request, "La respuesta fue guardada")
 				#return HttpResponseRedirect('/')
+				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		else:
 		    form = UsuarioFormuRespuestas()
 		 
@@ -79,6 +90,9 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 		args.update(csrf(request))
 		
 		args['form'] = form
+
+
+		letras = getAllTheLetters
 
 		return render_to_response("pregunta_detalle.html", 
 								  locals(),
