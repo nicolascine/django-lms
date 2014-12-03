@@ -92,7 +92,6 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 		args['form'] = form
 
 
-		letras = getAllTheLetters
 
 		return render_to_response("pregunta_detalle.html", 
 								  locals(),
