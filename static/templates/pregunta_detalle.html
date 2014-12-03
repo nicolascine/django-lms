@@ -22,10 +22,9 @@
 	<div class="row">
 		<h5>Alternativas:</h5>
 		
-
-			
 			{% for respuesta in listado_respuestas %}
-			<p> <input type="radio" name="respuesta" value="{{respuesta.id}}" />  {{respuesta.texto}}</p>
+			<p><input type="radio" name="respuesta" value="{{respuesta.id}}"{% if respuesta.id in M %} checked{% endif %}>  
+				{{respuesta.texto}}</p>
 			{% endfor %}
 
 		<br>
