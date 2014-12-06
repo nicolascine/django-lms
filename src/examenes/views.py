@@ -22,6 +22,7 @@ def examandetalle(request, slug, examen_slug):
 			arregloPreguntas.append(K.pregunta_id)
 
 		listado_preguntas = Pregunta.objects.filter(id__in = arregloPreguntas)
+
 		
 	return render_to_response("examen_detalle.html", 
 							  locals(),
