@@ -80,18 +80,17 @@ def preguntadetalle(request, slug, examen_slug, pregunta_id):
 				obj.user = request.user
 				obj.pregunta = pregunta
 				obj.save()
-				messages.success(request, "La respuesta fue guardada")
+				messages.success(request, "La respuesta %s fue guardada" % obj.respuesta_id)
 				#return HttpResponseRedirect('/')
 				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		else:
-		    form = UsuarioFormuRespuestas()
-		 
-		args = {}
-		args.update(csrf(request))
-		
-		args['form'] = form
+			form = UsuarioFormuRespuestas()
+			args = {}
+			args.update(csrf(request))
+			args['form'] = form
 
-
+		""" add letter for choices, ordering """
+		#letras = map(chr, range(97, 123))
 
 		return render_to_response("pregunta_detalle.html", 
 								  locals(),
