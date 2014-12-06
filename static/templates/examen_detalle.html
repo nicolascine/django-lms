@@ -29,7 +29,7 @@
 		
 		<ul>
 			{% for pregunta in listado_preguntas %}
-			<li><a href="../../../{{curso.slug}}/{{examen.examen_slug}}/pregunta/{{pregunta.id}}">{{pregunta.texto}}</a></li>
+			<li>{{pregunta}}. <a href="../../../{{curso.slug}}/{{examen.examen_slug}}/pregunta/{{pregunta.id}}">{{pregunta.texto}}</a></li>
 			{% endfor %}
 		</ul>
 
