@@ -16,14 +16,12 @@ def examandetalle(request, slug, examen_slug):
 	else:
 		examen = Examen.objects.get(examen_slug=examen_slug)
 		curso = Curso.objects.get(slug=slug)
-		preguntaDelExamen = PreguntaEnExamen.objects.filter(examen_id=examen.id)
-		arregloPreguntas = []
-		for K in preguntaDelExamen:
-			arregloPreguntas.append(K.pregunta_id)
-
-		listado_preguntas = Pregunta.objects.filter(id__in = arregloPreguntas)
-
 		
+		preguntaDelExamen = PreguntaEnExamen.objects.filter(examen_id=examen.id).values_list('pregunta_id', flat=True).order_by('sorting')
+
+		listado_preguntas = Pregunta.objects.filter(id__in = preguntaDelExamen)
+
+
 	return render_to_response("examen_detalle.html", 
 							  locals(),
 							  context_instance = RequestContext(request))
