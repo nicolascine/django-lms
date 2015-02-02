@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/nicolascine/django-lms/issues"
   },
-  "homepage": "https://github.com/nicolascine/django-lms"
+  "homepage": "https://github.com/nicolascine/django-lms",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
 }
