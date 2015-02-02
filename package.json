@@ -1,0 +1,24 @@
+{
+  "name": "django-lms",
+  "version": "1.0.0",
+  "description": "LMS written in python Django",
+  "main": "index.js",
+  "scripts": {
+    "test": "~"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolascine/django-lms.git"
+  },
+  "keywords": [
+    "lms",
+    "django",
+    "python"
+  ],
+  "author": "nicolas silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolascine/django-lms/issues"
+  },
+  "homepage": "https://github.com/nicolascine/django-lms"
+}
