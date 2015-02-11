@@ -1,0 +1,1 @@
+var nico = "test";alert(nico);
