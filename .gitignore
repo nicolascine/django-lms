@@ -9,3 +9,4 @@ static/media/*/
 static/media/*.*
 migrations
 node_modules
+.env
