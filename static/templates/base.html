@@ -1,129 +1,184 @@
 <!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
 <html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Plataforma cursos en linea APSA Capacitacion">
-    <meta name="author" content="neurobits spa">
-
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Plataforma educación en linea">
+    <meta name="author" content="nicolas silva">
     <title>APSA LMS - {%block pagetitle %}{% endblock %}</title>
-
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" type="image/x-icon" href="static/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="static/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="static/img/apple-touch-icon-144x144-precomposed.png">
     <!-- Bootstrap core CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/navbar.css" rel="stylesheet">
-    <link href="/static/css/login.css" rel="stylesheet">
-	
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <link href="/static/css/cursaria.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   
   <body>
-	
-	<div class="container">
+    
+  {% include "includes/header.html" %}
 
-  <!-- Static navbar -->
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">LMS APSACap</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="/cursos">Cursos</a></li>
-            </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-
-            	{% if user.is_authenticated %}
-            	   
-            	    {% if request.user.first_name or request.user.last_name %}
-            	         <li><a>Hola {{ request.user.first_name }} {{ request.user.last_name }} !</a></li>
-            	    {% else %}
-            	         <li><a href="/micuenta/">Hola {{ request.user.username }} !</a></li>
-            	    {% endif %}
-                   <!--{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}-->
-            	
-              {% else %}
-                   <li><a href="{% url "account_login" %}" class="pull-right">Entrar</a></li>
-            	{% endif %}
-
-            </ul>
-
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
+    <!-- slider -->
+    <section class="tp-banner-container">
+      <div class="tp-banner" >
+        <!-- <ul> Slide acá! </ul> -->
+        <div class="tp-bannertimer"></div>
       </div>
+    </section><!-- End slider -->
 
-	<!-- errores y mensajes -->
+    <!-- features -->
+  <section id="main-features">
+        <div class="divider_top_black"></div>
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-10 col-md-offset-1 text-center">
+                    <h2>Nuevas habilidades para tu trabajo</h2>
+                    <p class="lead">
+                        Adquiere nuevas habilidades para tu desempeño profesional <br>
+                        Aprende, profundiza o repasa conocimientos que te ayuden a mejorar tu actividad labiral
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="feature">
+                        <i class="icon-trophy"></i>
+                        <h3>Profesores Expertos</h3>
+                        <p>
+                          Cada profesor de nuestros cursos es un experto con años de experiencia y con sólidos conocimientos en su materia profesional.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature">
+                        <i class="icon-ok-4"></i>
+                        <h3>Obten un certificado impreso</h3>
+                        <p>
+                Todos nuestros cursos incluyen un certificado impreso en la puerta de tu casa.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature">
+                        <i class="icon-mic"></i>
+                        <h3>Accede a clases grabadas</h3>
+                        <p>
+                Podrás crear tu propio horario de estudio. Entra las veces que quieras, los días y horarios que tu elijas.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature">
+                        <i class="icon-video"></i>
+                        <h3>Examenes en línea</h3>
+                        <p>
+                Cada curso cuenta con examenes de evaluación, por cada unidad y de finalización del curso. Así podrás medir constantemente lo aprendido.
+                        </p>
+                    </div>
+                </div>
+            </div><!-- End row -->
+            </div><!-- End container-->
+    </section><!-- End main-features -->
 
-{% if messages %}
-    {% for message in messages %}
+<!-- listado cursos -->
 
-      <div class="alert alert-{{ message.tags }}">
-        <a class="close" data-dismiss="alert">×</a>
-       {{ message }}
-      </div>
+<section id="main_content_gray">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Listado de cursos</h2>
+            <p class="lead">Este listado muestra cursos que puedes tomar desde ahora</p>
+        </div>
+    </div><!-- End row -->
+    
+    <div class="row">
+    
+          <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-item">
+                        <span class="ribbon_course"></span>
+                            <div class="photo">
+                                <a href="#"><img src="img/poetry.jpg" alt="" /></a>
+                                <div class="cat_row"><a href="#">LITERATURE</a><span class="pull-right"><i class=" icon-clock"></i>6 Days</span></div>
+                            </div>
+                            <div class="info">
+                                <div class="row">
+                                    <div class="course_info col-md-12 col-sm-12">
+                                        <h4>Poetry course</h4>
+                                        <p > Lorem ipsum dolor sit amet, no sit sonet corpora indoctum, quo ad fierent insolens. Duo aeterno ancillae ei. </p>
+                                        <div class="rating">
+                                        <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i>
+                                      </div>
+                                        <div class="price pull-right">99$</div>
+                                    </div>
+                                </div>
+                                <div class="separator clearfix">
+                                    <p class="btn-add"> <a href="apply_2.html"><i class="icon-export-4"></i> Subscribe</a></p>
+                                    <p class="btn-details"> <a href="course_details_1.html"><i class=" icon-list"></i> Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-item">
+                            <div class="photo">
+                                <a href="#"><img src="img/business.jpg" alt="" /></a>
+                                <div class="cat_row"><a href="#">MANAGEMENT</a><span class="pull-right"><i class=" icon-clock"></i>6 Days</span></div>
+                            </div>
+                            <div class="info">
+                                <div class="row">
+                                    <div class="course_info col-md-12 col-sm-12">
+                                        <h4>Build a Business Plan</h4>
+                                        <p > Lorem ipsum dolor sit amet, no sit sonet corpora indoctum, quo ad fierent insolens. Duo aeterno ancillae ei. </p>
+                                        <div class="rating">
+                                        <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i>
+                                    </div>
+                                    <div class="price pull-right">99$</div>
+                                    </div>
+                                </div>
+                                <div class="separator clearfix">
+                                    <p class="btn-add"> <a href="apply_2.html"><i class="icon-export-4"></i> Subscribe</a></p>
+                                    <p class="btn-details"> <a href="course_details_1.html"><i class=" icon-list"></i> Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    {% endfor %}
 
-{% endif %}
-
-{% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-
-          <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-             {{ error|escape }}
-          </div>
-            
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-         <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-             {{ error|escape }}
-          </div>
-    {% endfor %}
-{% endif %}
+    </div><!-- End row -->
+    <div class="row">
+      <div class="col-md-12">
+           <a href="courses_grid.html" class="button_medium_outline pull-right">Ver todos los cursos</a>
+        </div>
+    </div>
+     </div>   <!-- End container -->
+    </section><!-- End section gray -->
 
 
-</div>
-
-  {% block content %}
-
-  {% endblock %}
+  <!-- testimonios -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="/static/js/bootstrap.min.js"></script>
+  <!-- footer -->
+  {% include "includes/footer.html" %}
 
-<script>
-  $(".alert").alert();
-window.setTimeout(function() { $(".alert").alert('close'); }, 5000);
-</script>
-
-<style>
-  #listadoClases .active{
-    color:grey;
-    text-decoration: none;
-  }
-
-</style>
+  <!-- scripts -->
+  <script src="static/js/todo.min.js"></script>
 
   </body>
 </html>
+
+
+
+
+

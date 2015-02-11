@@ -1,1 +1,1 @@
-var nico = "test";alert(nico);
+// js cursaria
