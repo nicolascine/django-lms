@@ -4,6 +4,7 @@ from examenes.models import *
 from django.db import models
 
 def home(request):
+	todos_los_cursos = Curso.objects.all()
 	return render_to_response("home.html", 
 							  locals(), 
 							  context_instance = RequestContext(request))

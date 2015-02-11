@@ -1,54 +1,130 @@
 {% extends 'base.html' %}
 {% block pagetitle %}{{curso.nombre}}{% endblock %}
-
 {% load thumbnail %}
+{% block contenido %}
 
-{% block content %}
+<!-- sacar -->
+<section id="sub-header" >
+  	<div class="container">
+    
+    	<div class="row">
+        	<div class="col-md-12 text-center">
+            	<h1>{{curso.nombre}}</h1>
+                <p class="lead">Esta es  <strong>una descripcion</strong> corta y llamativa del curso</p>
+            </div>
+        </div><!-- End row -->
+        
+        <div class="row" id="sub-header-features-2">
+        	<div class="col-md-6">
+            	<h2>Resumen</h2>
+                <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor <strong>imperdiet deterruisset</strong>, doctus volumus explicari qui ex, appareat similique an usu. Vel an hinc putant fierent, saperet legimus offendit sed ei doctus volumus explicari qui ex, appareat similique an usu. . Dolor euripidis cum eu, ea per lucilius periculis corrumpit, ut euismod omittam ancillae his.</p>
+                <p><em>Alguien - Director</em></p>
+            </div>
+            <div class="col-md-6">
+            	<h2>Qué obtendras</h2>
+                <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui.</p>
+                <ul class="list_ok">
+                    <li><strong>Certificado</strong> en papel</li>
+                    <li><strong>Acceso</strong> 24/7 por 3 meses</li>
+                    <li><strong>Descargas</strong> en cada clase</li>
+                    <li><strong>Ser un experto</strong> en 30 dias</li>
+                </ul>
+           </div>
+        </div><!-- End row -->
+    </div><!-- End container -->
+    <div class="divider_top"></div>
+  </section>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			
-			<h2>{{curso.nombre}}</h2>
-			<h3><a href="/curso/suscribirme/{{curso.id}}/">Suscribirme</a></h3>
-			<img src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
-			
-			<br>
-			<h4>Listado de clases</h4>
-			
+<section id="main_content">
+  <div class="container">
+  
+  <ol class="breadcrumb">
+      <li><a href="/">Inicio</a></li>
+      <li class="active">{{curso.nombre}}</li>
+    </ol>
 
+	 <div class="row">
+     		<div class="col-md-8">
 			{% for uni, listaunidad in listadoClaseUnidad.items %}
-
-				<h4>Unidad {{uni}}:
+				<h3 class="chapter_course no_margin_rop"> Unidad {{uni}}: {% for u in unidad %}{% if u.sorting == uni %}{{u.nombre}}{% endif %}{% endfor %}</h3>
 				
-				{% for u in unidad %}
-
-					{% if u.sorting == uni %}
-
-						{{u.nombre}}
-
-					{% endif %}
-
-				{% endfor %}
-				
-				</h4>
-				
-				<ul>{% for clase in listado_clases %}
+				{% for clase in listado_clases %}
 					{% if clase.unidad.id == listaunidad%}
-					<li>{{clase.sorting}}. <a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}}</a></li>
-					{% endif %}{% endfor %}
+					
+					<div class="strip_single_course">
+							<h4>{{clase.sorting}}. <a href="/cursos/{{curso.slug}}/{{clase.clase_slug}}">{{clase.nombre}}</a></h4>
+							<ul>
+	                              <li><i class="icon-clock"></i> 00:58</li>
+	                              <li><i class="icon-video"></i>Clase en video</li>
+	                        </ul>
+					</div><!-- //final single course -->
+					{% endif %}
+				{% endfor %}
 				{% for examen in listado_examenes %}
 					{% if examen.unidad.id == listaunidad%}
-					<li>
-					e. <a href="../../examen/{{curso.slug}}/{{examen.examen_slug}}">{{examen.nombre}}</a>
-					</li>
-					{% endif %}{% endfor %}
-				</ul>
+									<div class="strip_single_course">
+											<h4>{{clase.sorting}}. <a href="../../examen/{{curso.slug}}/{{examen.examen_slug}}">{{examen.nombre}}</a></h4>
+											<ul>
+					                              <li><i class="icon-doc"></i> examen del curso</li>
+
+					                        </ul>
+									</div><!-- //final single course -->
+					{% endif %}
+				{% endfor %}
+			<br>
 			{% endfor %}
-		</div>
-	</div>
+            </div><!-- End col-md-8  -->
+            
+            <aside class="col-md-4">
+				<img class="img-responsive" width="100%" src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
+            	<a href="/curso/suscribirme/{{curso.id}}/" class=" button_fullwidth-3">Suscribirme ahora</a> 
+            	<div class="box_style_1">
+         			<h4>Clases <span class="pull-right">17</span></h4>
+         			<h4>Hours <span class="pull-right">12</span></h4>
+                    <h4>Evaluación <span class="pull-right rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></span></h4>
+                    <h4>Inversón<span class="pull-right">120$</span></h4><br>
+                	<h4>Profesores</h4>
+                    <div class="media">
+                        <div class="pull-right">
+                            <img src="img/avatar1.jpg" class="img-circle" alt="">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading"><a href="#">Marc Twain</a></h5>
+                            <p>
+                                Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. 
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="media">
+                        <div class="pull-right">
+                            <img src="img/avatar1.jpg" class="img-circle" alt="">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading"><a href="#">Marc Twain</a></h5>
+                            <p>
+                                Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in.
+                            </p>
+                        </div>
+                    </div>
+           </div>
+           
+         </aside> <!-- End col-md-4 -->
+     	
+     </div><!-- End row -->
+     
+  
+ 
+        
+  </div><!-- End container -->
+
+</section>
+<!-- //sacar -->
 
 
-</div>
 
 {% endblock %}
+
+
+
+
