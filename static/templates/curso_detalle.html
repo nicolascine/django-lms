@@ -42,7 +42,8 @@
       <li><a href="/">Inicio</a></li>
       <li class="active">{{curso.nombre}}</li>
     </ol>
-
+  <h2>Contenidos del curso</h2>
+  <br>
 	 <div class="row">
      		<div class="col-md-8">
 			{% for uni, listaunidad in listadoClaseUnidad.items %}
@@ -76,8 +77,8 @@
             </div><!-- End col-md-8  -->
             
             <aside class="col-md-4">
-				<img class="img-responsive" width="100%" src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
-            	<a href="/curso/suscribirme/{{curso.id}}/" class=" button_fullwidth-3">Suscribirme ahora</a> 
+              <a href="/curso/suscribirme/{{curso.id}}/" class=" button_fullwidth-3">Suscribirme ahora</a> 
+              <img class="img-responsive" width="100%" src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="{{curso.nombre}}"/>
             	<div class="box_style_1">
          			<h4>Clases <span class="pull-right">17</span></h4>
          			<h4>Hours <span class="pull-right">12</span></h4>

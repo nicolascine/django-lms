@@ -1,5 +1,6 @@
 .Python
 env
+.env
 bin
 lib
 include
@@ -9,4 +10,3 @@ static/media/*/
 static/media/*.*
 migrations
 node_modules
-.env
