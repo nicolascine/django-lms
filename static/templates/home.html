@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
-
 {% block contenido %}
-
 <!-- buscador cursos -->
-
 {% include "includes/destacado-home.html" %}
-
 <!-- buscador cursos -->
-
 <section id="main-features">
     <div class="divider_top_black"></div>
     <div class="container">
@@ -60,9 +55,7 @@
         </div><!-- End row -->
         </div><!-- End container-->
 </section><!-- End main-features -->
-
 <!-- listado cursos -->
-
 <section id="main_content_gray">
   <div class="container">
       <div class="row">
@@ -71,15 +64,11 @@
             <p class="lead">Este listado muestra cursos que puedes tomar desde ahora</p>
         </div>
     </div><!-- End row -->
-    
     <div class="row">
-	
-	<!--/* cursos -->
+		<!--/* cursos -->
 		{% include "cursos/lista_cursos_snippet.html" %}
-    
     </div>
     <!-- End row -->
-
     <div class="row">
       <div class="col-md-12">
            <a href="courses_grid.html" class="button_medium_outline pull-right">Ver todos los cursos</a>
@@ -87,5 +76,4 @@
     </div>
      </div>   <!-- End container -->
 </section><!-- End section gray -->
-
 {% endblock %}
