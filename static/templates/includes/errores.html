@@ -1,0 +1,30 @@
+{% if messages %}
+    {% for message in messages %}
+
+      <div class="alert alert-{{ message.tags }}">
+        <a class="close" data-dismiss="alert">×</a>
+       {{ message }}
+      </div>
+
+    {% endfor %}
+
+{% endif %}
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+
+          <div class="alert alert-danger">
+            <a class="close" data-dismiss="alert">×</a>
+             {{ error|escape }}
+          </div>
+            
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+         <div class="alert alert-danger">
+            <a class="close" data-dismiss="alert">×</a>
+             {{ error|escape }}
+          </div>
+    {% endfor %}
+{% endif %}
