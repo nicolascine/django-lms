@@ -15,92 +15,24 @@
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="static/img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="static/img/apple-touch-icon-144x144-precomposed.png">
-    <!-- Bootstrap core CSS -->
-
     <link href="/static/css/cursaria.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  
   <body>
 
-  
-  <div class="container">
-
-
   <!-- errores y mensajes -->
+  {% include "includes/errores.html" %}
 
-{% if messages %}
-    {% for message in messages %}
-
-      <div class="alert alert-{{ message.tags }}">
-        <a class="close" data-dismiss="alert">×</a>
-       {{ message }}
-      </div>
-
-    {% endfor %}
-
-{% endif %}
-
-{% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-
-          <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-             {{ error|escape }}
-          </div>
-            
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-         <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-             {{ error|escape }}
-          </div>
-    {% endfor %}
-{% endif %}
-
-
-</div>
-
- 
-    
   {% include "includes/header.html" %}
-  
-  {% block contenido %}
- 
-  {% endblock %}
-
-  <!-- footer -->
+  {% block contenido %}{% endblock %}
   {% include "includes/footer.html" %}
- 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="/static/js/bootstrap.min.js"></script>
 
-<script>
-  $(".alert").alert();
-window.setTimeout(function() { $(".alert").alert('close'); }, 5000);
-</script>
-
-<style>
-  #listadoClases .active{
-    color:grey;
-    text-decoration: none;
-  }
-
-</style>
-
- 
-  <!-- scripts -->
-  <script src="static/js/todo.min.js"></script>
-
-  </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="static/js/todo.min.js"></script>
+</body>
 </html>
