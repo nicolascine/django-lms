@@ -1,15 +1,79 @@
 {% extends 'base.html' %}
-
-{% block content %}
-
-<div class="container">
-	<div class="jumbotron">
-		<h1>Cursos en línea</h1>
-		<p>Aprende a tu ritmo. Cursos disponibles 24/7. Clases en video, comienza hoy mismo</p>
-		<p>
-			<a class="btn btn-lg btn-primary" href="/cursos" role="button">Ver cursos disponibles &raquo;</a>
-		</p>
-	</div>
-</div>
-
+{% block contenido %}
+<!-- buscador cursos -->
+{% include "includes/destacado-home.html" %}
+<!-- buscador cursos -->
+<section id="main-features">
+    <div class="divider_top_black"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-10 col-md-offset-1 text-center">
+                <h2>Nuevas habilidades para tu trabajo</h2>
+                <p class="lead">
+                    Adquiere nuevas habilidades para tu desempeño profesional <br>
+                    Aprende, profundiza o repasa conocimientos que te ayuden a mejorar tu actividad laboral
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-trophy"></i>
+                    <h3>Profesores Expertos</h3>
+                    <p>
+                      Cada profesor de nuestros cursos es un experto con años de experiencia y con sólidos conocimientos en su materia profesional.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-ok-4"></i>
+                    <h3>Obten un certificado impreso</h3>
+                    <p>
+            Todos nuestros cursos incluyen un certificado impreso en la puerta de tu casa.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-mic"></i>
+                    <h3>Accede a clases grabadas</h3>
+                    <p>
+            Podrás crear tu propio horario de estudio. Entra las veces que quieras, los días y horarios que tu elijas.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-video"></i>
+                    <h3>Examenes en línea</h3>
+                    <p>
+            Cada curso cuenta con examenes de evaluación, por cada unidad y de finalización del curso. Así podrás medir constantemente lo aprendido.
+                    </p>
+                </div>
+            </div>
+        </div><!-- End row -->
+        </div><!-- End container-->
+</section><!-- End main-features -->
+<!-- listado cursos -->
+<section id="main_content_gray">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Listado de cursos</h2>
+            <p class="lead">Este listado muestra cursos que puedes tomar desde ahora</p>
+        </div>
+    </div><!-- End row -->
+    <div class="row">
+		<!--/* cursos -->
+		{% include "cursos/lista_cursos_snippet.html" %}
+    </div>
+    <!-- End row -->
+    <div class="row">
+      <div class="col-md-12">
+           <a href="courses_grid.html" class="button_medium_outline pull-right">Ver todos los cursos</a>
+        </div>
+    </div>
+     </div>   <!-- End container -->
+</section><!-- End section gray -->
 {% endblock %}

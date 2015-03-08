@@ -1,44 +1,36 @@
 {% load thumbnail %}
-<div class="row">
-	{% for curso in todos_los_cursos %}
 
+{% for curso in todos_los_cursos %}
 	<div class="col-lg-3 col-md-6 col-sm-6">
-		<div class="col-item">
-			<!--<span class="ribbon_course"></span>-->
-			<div class="photo">
-				<a href="/cursos/{{curso.slug}}" title="Curso {{curso.nombre}}">
-				<img src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="Curso {{curso.nombre}}" />
-				</a>
-				<div class="cat_row">
-					<a href="#categoria-link">{{curso.area}}</a>
-					<span class="pull-right">
-						<i class=" icon-clock"></i>100 Horas
-					</span>
-				</div>
-			</div>
-			<div class="info">
-				<div class="row">
-					<div class="course_info col-md-12 col-sm-12">
-						<h4>{{curso.nombre}}</h4>
-						<div class="rating">
-							<i class="icon-star"></i>
-							<i class="icon-star"></i>
-							<i class="icon-star"></i>
-							<i class="icon-star"></i>
-							<i class="icon-star"></i>
-						</div>
-						<div class="price pull-right">$50.000</div>
-					</div>
-				</div>
-				<div class="separator clearfix">
-					<p class="btn-add"><a rel="nofollow" href="#link-inscribirse"><i class="icon-export-4"></i> Inscribirse</a></p>
-					
-					<p class="btn-details"> <a href="#link-detalles"><i class=" icon-list"></i> Detalles</a></p>
-				</div>
-			</div>
-		</div>
+	    <div class="col-item">
+			<span class="ribbon_course"></span>
+	        <div class="photo">
+	            <a href="/cursos/{{curso.slug}}" alt="Curso {{curso.nombre}}" title="Curso {{curso.nombre}}">
+	            	<img src="{{ curso.img|thumbnail_url:'galeriacursos' }}" alt="Curso {{curso.nombre}}" /></a>
+	            <div class="cat_row">
+	            	<a href="#">{{curso.area}}</a>
+	            	<span class="pull-right"><i class="icon-clock"></i>6 Days</span></div>
+	        </div>
+	        <div class="info">
+	            <div class="row">
+	                <div class="course_info col-md-12 col-sm-12">
+	                    <h4>{{curso.nombre}}</h4>
+	                    <p>Esto es una descripción relativamente corta acerca del curso ... 1 2 3 </p>
+	                    <div class="rating">
+	                    <i class="icon-star"></i>
+	                    <i class="icon-star"></i>
+	                    <i class="icon-star"></i>
+	                    <i class="icon-star-empty"></i>
+	                    <i class="icon-star-empty"></i>
+	                </div>
+	                <div class="price pull-right">99$</div>
+	                </div>
+	            </div>
+	            <div class="separator clearfix">
+	                <p class="btn-add"> <a href="#"><i class="icon-export-4"></i> Subscribirse</a></p>
+	                <p class="btn-details"> <a href="/cursos/{{curso.slug}}"><i class=" icon-list"></i> Detalles</a></p>
+	            </div>
+	        </div>
+	    </div>
 	</div>
-
- 
-	{% endfor %}
-</div>
+{% endfor %}
