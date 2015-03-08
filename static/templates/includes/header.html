@@ -1,4 +1,16 @@
     <header>
+    {% if user.is_authenticated %}
+       
+        {% if request.user.first_name or request.user.last_name %}
+             <li><a>Hola {{ request.user.first_name }} {{ request.user.last_name }} !</a></li>
+        {% else %}
+             <li><a href="/micuenta/">Hola {{ request.user.username }} !</a></li>
+        {% endif %}
+         <!--{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}-->
+    
+    {% else %}
+         <li><a href="{% url "account_login" %}" class="pull-right">Entrar</a></li>
+    {% endif %}
       <div class="container">
         <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-3">
@@ -11,6 +23,7 @@
               <a href="#" class="button_top" id="login_top">ENTRAR</a>
               <a href="#" class="button_top hidden-xs" id="apply">REIGSTRARSE</a>
             </div>
+
             <ul id="top_nav" class="hidden-xs">
               <li><a href="#">Sobre Nosotros</a></li>
               <li><a href="#">Preguntas Frecuentes</a></li>
@@ -19,6 +32,7 @@
         </div>
       </div>
       </header><!-- End header -->
+
       <nav>
         <div class="container">
           <div class="row">
